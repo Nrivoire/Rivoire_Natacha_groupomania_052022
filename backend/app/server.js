@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
+const bodyParser = require("body-parser");
 
 const config = require('./config.js');
-const connect = require('./connect.js');
+const auth = require('./middelware/auth.js');
+const userController = require('./controllers/userController.js');
 
+app.use(bodyParser.json({extended: true}));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -11,11 +14,9 @@ app.use((req, res, next) => {
   next();
 });
 
-connect;
-
-app.get('/', function(req, res) {
-  console.log("Hello there");
-  res.status(200).send('ok');
-})
+app.post('/api/signup', userController.createUser);
+app.get('/api/login', userController.getUser);
+app.put('/api/user/update', auth, userController.updateUser);
+app.delete('/api/user/delete', auth, userController.deleteUser);
 
 app.listen(config.port);
