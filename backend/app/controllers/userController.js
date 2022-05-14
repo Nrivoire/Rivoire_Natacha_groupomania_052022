@@ -4,6 +4,11 @@ const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res) => {
 	try {
+		if (!req.body.email) {
+			console.log("no email");
+			res.status(400).send("no email");
+			return;
+		}
 		await User.findOne({
 			where : {
 				email : req.body.email
@@ -16,7 +21,7 @@ exports.createUser = async (req, res) => {
 				firstname: req.body.firstname,
 				lastname: req.body.lastname
 			});
-			res.status(200).send('Success');
+			res.status(200).send("ok");
 		});
 	} catch (err) {
 		res.status(400).send(err);
@@ -25,18 +30,25 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
 	try {
+		if (!req.body.email) {
+			console.log("no email");
+			res.status(400).send("no email");
+			return;
+		}
 		await User.findOne({
 			where : {
 				email : req.body.email
 			}
 		}).then((user) => {
 			if (!user) {
+				console.log('cannot find user');
 				res.status(404).send('cannot find user');
 			} else {
 				if (user.dataValues.password !== md5(req.body.password))
 					res.status(404).send('wrong password');
 				else {
 					console.log(user.dataValues);
+					//res.status(200).status("ok");
 					res.status(200).json({
 						userId: user.dataValues.id,
 						token: jwt.sign(

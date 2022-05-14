@@ -6,29 +6,22 @@ const sequelize = new Sequelize(config.database, config.user, config.password, {
     host: "localhost"
 });
 
-const User = sequelize.define('user', {
+const Post = sequelize.define('post', {
 	// Model attributes are defined here
-	firstname: {
-		type: DataTypes.STRING,
-		allowNull: false
+	userid: {
+		type: DataTypes.INTEGER
 	},
-	lastname: {
+	content: {
 		type: DataTypes.STRING
 	},
-	email: {
-		type: DataTypes.STRING
-	},
-	birthday: {
-		type: DataTypes.DATE
-	},
-	password: {
+	imageURL: {
 		type: DataTypes.STRING
 	}
 } , {
 	// Other model options go here
 	timestamps: false,
 	sequelize,
-	modelName: 'User'
+	modelName: 'Post' 
 });
 
-module.exports = User;
+module.exports = Post;

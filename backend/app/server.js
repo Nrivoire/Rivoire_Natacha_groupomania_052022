@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const config = require('./config.js');
 const auth = require('./middelware/auth.js');
 const userController = require('./controllers/userController.js');
+const postController = require('./controllers/postController.js');
 
 app.use(bodyParser.json({extended: true}));
 app.use((req, res, next) => {
@@ -15,8 +16,10 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/signup', userController.createUser);
-app.get('/api/login', userController.getUser);
+app.post('/api/login', userController.getUser);
 app.put('/api/user/update', auth, userController.updateUser);
 app.delete('/api/user/delete', auth, userController.deleteUser);
+
+app.post('/api/post/create', postController.createPost);
 
 app.listen(config.port);
