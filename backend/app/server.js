@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
+const path = require('path');
 
 const config = require('./config.js');
 const auth = require('./middelware/auth.js');
+const multer = require('./middelware/multer-config.js');
 const userController = require('./controllers/userController.js');
 const postController = require('./controllers/postController.js');
 
@@ -20,6 +22,8 @@ app.post('/api/login', userController.getUser);
 app.put('/api/user/update', auth, userController.updateUser);
 app.delete('/api/user/delete', auth, userController.deleteUser);
 
-app.post('/api/post/create', postController.createPost);
+app.post('/api/post/create', auth, multer, postController.createPost);
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.listen(config.port);
