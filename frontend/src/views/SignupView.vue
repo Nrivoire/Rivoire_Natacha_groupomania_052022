@@ -16,10 +16,6 @@
 				<input type="email" placeholder="Votre email" name="email" required>
 			</div>
 			<div class="item">
-				<label for="birthday"><b>Date d'anniversaire</b></label>
-				<input type="birthday" placeholder="Votre anniversaire" name="birthday" required>
-			</div>
-			<div class="item">
 				<label for="password"><b>Mot de passe</b></label>
 				<input type="password" placeholder="Votre mot de passe" name="password" required>
 			</div>

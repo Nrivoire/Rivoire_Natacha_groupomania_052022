@@ -33,7 +33,6 @@ export default {
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json',
-					//'Authentication': 'Bearer ' + JSON.parse(sessionStorage.getItem("Token"))
 				},
 				body: JSON.stringify({
 					email: this.email,
@@ -44,7 +43,6 @@ export default {
 			}).then(data => {
 				console.log(data);
 				sessionStorage.setItem("Token", JSON.stringify(data.token));
-				sessionStorage.setItem("UserId", JSON.stringify(data.userId));
 				window.location = "/session";
 			}).catch(err => {
 				console.error(err);

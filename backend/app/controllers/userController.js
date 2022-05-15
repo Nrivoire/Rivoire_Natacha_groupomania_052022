@@ -22,6 +22,9 @@ exports.createUser = async (req, res) => {
 				lastname: req.body.lastname
 			});
 			res.status(200).send("ok");
+		}).catch((err) => {
+			console.log(err);
+			res.status(400).send(err);
 		});
 	} catch (err) {
 		res.status(400).send(err);
@@ -76,7 +79,10 @@ exports.deleteUser = async (req, res) => {
 			}
 		}).then(() => {
 			res.status(200).send('Success');
-		})
+		}).catch(err => {
+			console.error(err);
+			res.status(400).send(err);
+		});
 	} catch (err) {
 		res.status(400).send(err);
 	}
@@ -84,19 +90,16 @@ exports.deleteUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
 	try {
-		await User.update({
-			email: req.body.email,
-			birthday: req.body.birthday,
-			password: md5(req.body.password),
-			firstname: req.body.firstname,
-			lastname: req.body.lastname
-		}, {
+		await User.update(req.body, {
 			where: {
-				id: req.headers.authorization[0]
+				id: req.auth.userId
 			}
 		}).then(() => {
-			res.status(200).send('Success');
-		})
+			res.status(200).send('ok');
+		}).catch(err => {
+			console.error(err);
+			res.status(400).send(err);
+		});
 	} catch (err) {
 		res.status(400).send(err);
 	}
