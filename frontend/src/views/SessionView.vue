@@ -1,8 +1,5 @@
 <template>
 	<main>
-		<div class="session">
-			<h1>Yay you loged in !</h1>
-		</div>
 		<div class="center-column">
 			<div class="new-post">
 				<input @change="uploadPicture($event)" type="file" accept="image/png, image/jpeg" class="downloadPic">
@@ -26,7 +23,8 @@ export default {
 	data() {
 		return {
 			newContent: '',
-			tablePost: ''
+			tablePost: '',
+			imageURL: ''
 		}
 	},
 	methods: {
@@ -35,7 +33,7 @@ export default {
 		},
 		postNewPost() {
 			var formdata = new FormData();
-			formdata.append('content', this.content);
+			formdata.append('content', this.newContent);
 			formdata.append('image', this.imageURL);
 			var h = new Headers();
 			h.append('Accept', 'application/json');
@@ -45,10 +43,8 @@ export default {
 				headers: h,
 				body: formdata
 			}).then(res => {
-				console.log(res);
-				//	return res.json();
-			}).then(data => {
-				console.log(data);
+				if (res.ok)
+					location.reload();
 			}).catch(err => {
 				console.error(err);
 			})
@@ -84,12 +80,18 @@ main {
 	align-items: center;
 }
 
+.center-column {
+	width: 50%;
+	margin: 10px;
+}
+
 .input-new-post {
 	width: 80%;
 	height: 100px;
 }
 
-.new-post, .post {
+.new-post,
+.post {
 	background-color: rgb(245, 167, 167);
 	width: 100%;
 }

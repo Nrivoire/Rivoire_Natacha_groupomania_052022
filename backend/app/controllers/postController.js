@@ -7,8 +7,12 @@ exports.createPost = async (req, res) => {
 			userid: req.auth.userId,
 			content: req.body.content,
 			imageURL: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-		});
-		res.status(200).send("ok");
+		}).then(() => {
+			res.status(200).send("ok");
+		}).catch(err => {
+			console.log(err);
+			res.status(400).send(err);
+		})
 	} catch(err) {
 		res.status(400).send(err);
 	}
