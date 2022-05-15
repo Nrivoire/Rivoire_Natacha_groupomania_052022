@@ -2,14 +2,22 @@
 
 	<body>
 		<main>
-			<div>
-				<h1>Mon compte</h1>
-			</div>
 			<div class="container">
 				<div class="row">
 					<div class="col">
 					</div>
 					<div class="col-6">
+						<h1>Mon compte</h1>
+					</div>
+					<div class="col">
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+					</div>
+					<div class="col-6 col-log">
 
 						<div class="container">
 							<div class="item">
@@ -122,6 +130,10 @@ export default {
 h1 {
 	margin-top: 5%;
 	margin-bottom: 10%;
+}
+
+.row {
+	margin-bottom: 5px;
 }
 
 .deleteButton {

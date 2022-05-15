@@ -24,6 +24,7 @@ app.get('/api/user/get', auth, userController.getUser);
 app.put('/api/user/update', auth, userController.updateUser);
 app.delete('/api/user/delete', auth, userController.deleteUser);
 
+app.get('/api/post/get/:id', postController.getPost);
 app.get('/api/post', auth, postController.getAllPosts);
 app.post('/api/post/create', auth, multer, postController.createPost);
 

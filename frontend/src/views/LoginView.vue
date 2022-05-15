@@ -6,7 +6,7 @@
 				<div class="row">
 					<div class="col">
 					</div>
-					<div class="col-6">
+					<div class="col-6 col-log">
 						<div class="imgcontainer">
 							<img src="../assets/icon-above-font.svg" height="300" alt="groupomania red logo">
 						</div>
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style>
-.col-6 {
+.col-log {
 	background-color: rgb(245, 167, 167);
 	border-radius: 10px;
 }

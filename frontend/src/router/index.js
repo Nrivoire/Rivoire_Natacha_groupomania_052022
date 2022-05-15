@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignupView.vue'
 import SessionView from '../views/SessionView.vue'
 import UserUpdateView from '../views/UserUpdateView.vue'
+import CommentaireView from '../views/CommentaireView.vue'
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/account',
     name: 'account',
     component: UserUpdateView
+  },
+  {
+    path: '/commentaire/:id',
+    name: 'commentaire',
+    component: CommentaireView
   }
 ]
 

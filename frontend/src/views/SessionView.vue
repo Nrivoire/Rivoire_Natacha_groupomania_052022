@@ -1,17 +1,33 @@
 <template>
 	<main>
-		<div class="center-column">
-			<div class="new-post">
-				<input @change="uploadPicture($event)" type="file" accept="image/png, image/jpeg" class="downloadPic">
-				<textarea class="input-new-post" type="text" placeholder="Votre message ici..." name="newContent"
-					v-model="newContent">
-				</textarea>
-				<button @click="postNewPost" class="validate" type="submit">Valider</button>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+				</div>
+				<div class="col-6">
+					<div class="new-post">
+						<input @change="uploadPicture($event)" type="file" accept="image/png, image/jpeg"
+							class="downloadPic">
+						<textarea class="input-new-post" type="text" placeholder="Votre message ici..."
+							name="newContent" v-model="newContent"></textarea>
+						<button @click="postNewPost" class="validate" type="submit">Valider</button>
+					</div>
+				</div>
+				<div class="col">
+				</div>
 			</div>
-			<div v-for="post in tablePost" :key="post" class="post">
-				<h2>{{ post.firstname }}</h2>
-				<img :src="post.imageURL" height="200">
-				<p>{{ post.content }}</p>
+			<div class="row">
+				<div class="col">
+				</div>
+				<div class="col-6">
+					<a :href="post.idURL" v-for="post in tablePost" :key="post" class="post">
+						<h2>{{ post.firstname }}</h2>
+						<img :src="post.imageURL" height="200">
+						<p>{{ post.content }}</p>
+					</a>
+				</div>
+				<div class="col">
+				</div>
 			</div>
 		</div>
 	</main>
@@ -59,6 +75,10 @@ export default {
 			}).then(res => {
 				return res.json();
 			}).then(data => {
+				for (var i = 0; i < data.length; i++) {
+					data[i].idURL = "/commentaire/" + data[i].id;
+					console.log(data[i]);
+				}
 				this.tablePost = data;
 			}).catch(err => {
 				console.error(err);
@@ -72,10 +92,13 @@ export default {
 </script>
 
 <style>
+a {
+	text-decoration: none;
+	color: unset;
+}
 
-.center-column {
-	width: 50%;
-	margin: 10px;
+a:hover {
+	color: unset;
 }
 
 .input-new-post {

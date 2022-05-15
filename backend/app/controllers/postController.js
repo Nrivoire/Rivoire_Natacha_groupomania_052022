@@ -21,14 +21,14 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = (req, res) => {
 	try {
 		sequelize.query(
-			"SELECT * FROM posts INNER JOIN users ON posts.userid = users.id;", 
+			"SELECT *, posts.id FROM posts INNER JOIN users ON posts.userid = users.id", 
 			{
 				type: sequelize.QueryTypes.SELECT
 			}
 		).then(data => {
 			var table = [];
+			console.log(data)
 			data.forEach(post => {
-				console.log(post);
 				table.push(post);
 			})
 			res.status(200).send(table);
@@ -36,6 +36,25 @@ exports.getAllPosts = (req, res) => {
 			console.log(err);
 		})
 		
+	} catch(err) {
+		res.status(400).send(err);
+	}
+}
+
+exports.getPost = (req, res) => {
+	try {
+		sequelize.query(
+			"SELECT * FROM posts INNER JOIN users ON posts.userid = users.id WHERE posts.id = :id", 
+			{
+				replacements: { id: req.params.id },
+				type: sequelize.QueryTypes.SELECT
+			}
+		).then(post => {
+			res.status(200).send(post[0]);
+		}).catch(err => {
+			console.error(err);
+			res.status(400).send(err);
+		});
 	} catch(err) {
 		res.status(400).send(err);
 	}

@@ -6,7 +6,7 @@
 				<div class="row">
 					<div class="col">
 					</div>
-					<div class="col-6">
+					<div class="col-6 col-log">
 						<div class="imgcontainer">
 							<img src="/img/icon-above-font.c8b4b6b1.svg" height="300" alt="groupomania red logo">
 						</div>
