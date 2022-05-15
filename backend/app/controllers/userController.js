@@ -10,8 +10,8 @@ exports.createUser = async (req, res) => {
 			return;
 		}
 		await User.findOne({
-			where : {
-				email : req.body.email
+			where: {
+				email: req.body.email
 			}
 		}).then(() => {
 			User.create({
@@ -20,8 +20,18 @@ exports.createUser = async (req, res) => {
 				password: md5(req.body.password),
 				firstname: req.body.firstname,
 				lastname: req.body.lastname
-			});
-			res.status(200).send("ok");
+			}).then(user => {
+				res.status(200).json({
+					userId: user.dataValues.id,
+					token: jwt.sign(
+						{ userId: user.dataValues.id },
+						'RANDOM_TOKEN_SECRET',
+						{ expiresIn: '24h' }
+					)	
+			})}).catch(err => {
+				console.log(err);
+				res.status(400).send(err);
+			})
 		}).catch((err) => {
 			console.log(err);
 			res.status(400).send(err);
@@ -31,7 +41,7 @@ exports.createUser = async (req, res) => {
 	}
 }
 
-exports.getUser = async (req, res) => {
+exports.login = async (req, res) => {
 	try {
 		if (!req.body.email) {
 			console.log("no email");
@@ -39,8 +49,8 @@ exports.getUser = async (req, res) => {
 			return;
 		}
 		await User.findOne({
-			where : {
-				email : req.body.email
+			where: {
+				email: req.body.email
 			}
 		}).then((user) => {
 			if (!user) {
@@ -50,8 +60,6 @@ exports.getUser = async (req, res) => {
 				if (user.dataValues.password !== md5(req.body.password))
 					res.status(404).send('wrong password');
 				else {
-					console.log(user.dataValues);
-					//res.status(200).status("ok");
 					res.status(200).json({
 						userId: user.dataValues.id,
 						token: jwt.sign(
@@ -71,11 +79,31 @@ exports.getUser = async (req, res) => {
 	}
 }
 
+exports.getUser = (req, res) => {
+	try {
+		User.findOne({
+			where: {
+				id: req.auth.userId
+			}
+		}).then(user => {
+			console.log(user.dataValues);
+			res.status(200).send(user.dataValues);
+		}).catch(err => {
+			console.error(err);
+			res.status(400).send(err);
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(400).send(err);
+	}
+}
+
 exports.deleteUser = async (req, res) => {
 	try {
-	await User.destroy({
+		console.log("here");
+		await User.destroy({
 			where: {
-				email: 'bryan@email.com'
+				id: req.auth.userId
 			}
 		}).then(() => {
 			res.status(200).send('Success');

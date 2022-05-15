@@ -18,7 +18,9 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/signup', userController.createUser);
-app.post('/api/login', userController.getUser);
+app.post('/api/login', userController.login);
+
+app.get('/api/user/get', auth, userController.getUser);
 app.put('/api/user/update', auth, userController.updateUser);
 app.delete('/api/user/delete', auth, userController.deleteUser);
 
