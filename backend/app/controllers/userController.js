@@ -100,13 +100,12 @@ exports.getUser = (req, res) => {
 
 exports.deleteUser = async (req, res) => {
 	try {
-		console.log("here");
 		await User.destroy({
 			where: {
 				id: req.auth.userId
 			}
 		}).then(() => {
-			res.status(200).send('Success');
+			res.status(200).send('ok');
 		}).catch(err => {
 			console.error(err);
 			res.status(400).send(err);

@@ -83,10 +83,12 @@ export default {
 				h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
 				fetch('http://localhost:3000/api/user/delete', {
 					method: "DELETE",
-					header: h
+					headers: h
 				}).then(res => {
-					if (res.ok)
-						console.log("OK");
+					if (res.ok) {
+						sessionStorage.removeItem("Token");
+						window.location = "/login";
+					}
 				}).catch(err => {
 					console.error(err);
 				})
