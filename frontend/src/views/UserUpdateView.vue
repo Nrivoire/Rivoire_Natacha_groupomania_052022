@@ -1,30 +1,47 @@
 <template>
 
 	<body>
-		<div>
-			<h1>Vous pouvez modifier votre compte ici</h1>
-		</div>
-		<div class="container">
-			<div class="item">
-				<label for="firstname"><b>Prénom</b></label>
-				<input type="firstname" placeholder="Votre nouveau prénom" name="firstname" v-model="firstname">
-			</div>
-			<div class="item"><label for="lastname"><b>Nom</b></label>
-				<input type="lastname" placeholder="Votre nouveau nom de famille" name="lastname" v-model="lastname">
-			</div>
-			<div class="item">
-				<label for="email"><b>Email</b></label>
-				<input type="email" placeholder="Votre nouveau email" name="email" v-model="email">
-			</div>
-			<div class="item">
-				<label for="password"><b>Mot de passe</b></label>
-				<input type="password" placeholder="Votre nouveau mot de passe" name="password" v-model="password">
-			</div>
-			<button @click="updateAccount" type="submit">Modifier votre compte</button>
+		<main>
 			<div>
-				<button class="deleteButton" @click="deleteAccount" type="delete" >Supprimer compte</button>
+				<h1>Mon compte</h1>
 			</div>
-		</div>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+					</div>
+					<div class="col-6">
+
+						<div class="container">
+							<div class="item">
+								<label for="firstname"><b>Prénom</b></label>
+								<input type="firstname" placeholder="Votre nouveau prénom" name="firstname"
+									v-model="firstname">
+							</div>
+							<div class="item"><label for="lastname"><b>Nom</b></label>
+								<input type="lastname" placeholder="Votre nouveau nom de famille" name="lastname"
+									v-model="lastname">
+							</div>
+							<div class="item">
+								<label for="email"><b>Email</b></label>
+								<input type="email" placeholder="Votre nouveau email" name="email" v-model="email">
+							</div>
+							<div class="item">
+								<label for="password"><b>Mot de passe</b></label>
+								<input type="password" placeholder="Votre nouveau mot de passe" name="password"
+									v-model="password">
+							</div>
+							<button @click="updateAccount" type="submit">Modifier votre compte</button>
+							<div>
+								<button class="deleteButton" @click="deleteAccount" type="delete">Supprimer
+									compte</button>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+					</div>
+				</div>
+			</div>
+		</main>
 	</body>
 </template>
 
@@ -102,56 +119,13 @@ export default {
 </script>
 
 <style>
-body {
-	background-color: rgb(245, 167, 167);
-}
-
-a {
-	text-decoration: none;
-}
-
-.container {
-	background-color: white;
-	border: 3px solid #f1f1f1;
-	width: 30%;
-	margin-left: 35%;
-	display: flex;
-	flex-direction: column;
-}
-
-.item {
-	display: flex;
-	flex-direction: column;
-}
-
-/* Full-width inputs */
-input {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	box-sizing: border-box;
-}
-
-/* Set a style for all buttons */
-button {
-	background-color: rgb(214, 79, 79);
-	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 100%;
+h1 {
+	margin-top: 5%;
+	margin-bottom: 10%;
 }
 
 .deleteButton {
 	margin-top: 10%;
 	background-color: rgb(168, 3, 3);
-}
-
-/* Add a hover effect for buttons */
-button:hover {
-	opacity: 0.8;
 }
 </style>

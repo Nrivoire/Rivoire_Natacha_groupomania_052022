@@ -72,13 +72,6 @@ export default {
 </script>
 
 <style>
-main {
-	background-color: rgb(255, 220, 220);
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
 
 .center-column {
 	width: 50%;

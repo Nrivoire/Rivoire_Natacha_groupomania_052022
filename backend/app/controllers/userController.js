@@ -86,7 +86,6 @@ exports.getUser = (req, res) => {
 				id: req.auth.userId
 			}
 		}).then(user => {
-			console.log(user.dataValues);
 			res.status(200).send(user.dataValues);
 		}).catch(err => {
 			console.error(err);
