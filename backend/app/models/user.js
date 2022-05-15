@@ -1,10 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
-
-const config = require('../config.js');
-const sequelize = new Sequelize(config.database, config.user, config.password, {
-    dialect: "mysql",
-    host: "localhost"
-});
+const DataTypes = require('sequelize');
+const sequelize = require('../connect.js');
 
 const User = sequelize.define('user', {
 	// Model attributes are defined here

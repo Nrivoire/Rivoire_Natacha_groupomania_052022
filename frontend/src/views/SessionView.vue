@@ -6,9 +6,15 @@
 		<div class="center-column">
 			<div class="new-post">
 				<input @change="uploadPicture($event)" type="file" accept="image/png, image/jpeg" class="downloadPic">
-				<textarea class="input-new-post" type="text" placeholder="Votre message ici..." name="content" v-model="content">
+				<textarea class="input-new-post" type="text" placeholder="Votre message ici..." name="newContent"
+					v-model="newContent">
 				</textarea>
 				<button @click="postNewPost" class="validate" type="submit">Valider</button>
+			</div>
+			<div v-for="post in tablePost" :key="post" class="post">
+				<h2>{{ post.firstname }}</h2>
+				<img :src="post.imageURL" height="200">
+				<p>{{ post.content }}</p>
 			</div>
 		</div>
 	</main>
@@ -19,8 +25,8 @@ export default {
 	name: "SessionView",
 	data() {
 		return {
-			content: '',
-			imageURL: '',
+			newContent: '',
+			tablePost: ''
 		}
 	},
 	methods: {
@@ -36,17 +42,36 @@ export default {
 			h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
 			fetch("http://localhost:3000/api/post/create", {
 				method: "POST",
-				headers : h,
+				headers: h,
 				body: formdata
 			}).then(res => {
-				return res.json();
+				console.log(res);
+				//	return res.json();
 			}).then(data => {
 				console.log(data);
 			}).catch(err => {
 				console.error(err);
 			})
+		},
+		getAllPost() {
+			var h = new Headers();
+			h.append('Accept', 'application/json');
+			h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
+			fetch('http://localhost:3000/api/post', {
+				method: "GET",
+				headers: h
+			}).then(res => {
+				return res.json();
+			}).then(data => {
+				this.tablePost = data;
+			}).catch(err => {
+				console.error(err);
+			})
 		}
-	}
+	},
+	beforeMount() {
+		this.getAllPost()
+	},
 }
 </script>
 
@@ -58,14 +83,17 @@ main {
 	flex-direction: column;
 	align-items: center;
 }
+
 .input-new-post {
 	width: 80%;
 	height: 100px;
 }
-.new-post {
+
+.new-post, .post {
 	background-color: rgb(245, 167, 167);
 	width: 100%;
 }
+
 /* Set a style for all buttons */
 .validate {
 	background-color: rgb(214, 79, 79);
@@ -76,6 +104,7 @@ main {
 	cursor: pointer;
 	width: 80%;
 }
+
 input[type='file'] {
 	border: none
 }
