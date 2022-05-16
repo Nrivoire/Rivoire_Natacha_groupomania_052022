@@ -11,6 +11,9 @@ const Post = sequelize.define('post', {
 	},
 	imageURL: {
 		type: DataTypes.STRING
+	},
+	title: {
+		type: DataTypes.STRING
 	}
 } , {
 	// Other model options go here

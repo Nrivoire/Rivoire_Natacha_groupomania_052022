@@ -8,7 +8,7 @@
 							<input @change="uploadPicture($event)" type="file" placeholder="Choisir une image" accept="image/png, image/jpeg">
 						</div>
 						<div class="media-body">
-							<textarea v-model='title' placeholder="Votre titre ici..."></textarea>
+							<textarea v-model="newPostTitle" placeholder="Votre titre ici..."></textarea>
 							<textarea class="input-new-post" type="text" placeholder="Votre message ici..."
 								name="newContent" v-model="newContent"></textarea>
 							<button @click="postNewPost" class="validate" type="submit">Valider</button>
@@ -52,7 +52,8 @@ export default {
 		return {
 			newContent: '',
 			tablePost: '',
-			imageURL: ''
+			imageURL: '',
+			newPostTitle: ''
 		}
 	},
 	methods: {
@@ -62,6 +63,7 @@ export default {
 		postNewPost() {
 			var formdata = new FormData();
 			formdata.append('content', this.newContent);
+			formdata.append('title', this.newPostTitle);
 			formdata.append('image', this.imageURL);
 			var h = new Headers();
 			h.append('Accept', 'application/json');

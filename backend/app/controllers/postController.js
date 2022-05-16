@@ -3,9 +3,11 @@ const sequelize = require('../connect.js');
 
 exports.createPost = async (req, res) => {
 	try {
+		console.log(req.body)
 		await Post.create({
 			userid: req.auth.userId,
 			content: req.body.content,
+			title: req.body.title,
 			imageURL: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 		}).then(() => {
 			res.status(200).send("ok");
@@ -27,7 +29,6 @@ exports.getAllPosts = (req, res) => {
 			}
 		).then(data => {
 			var table = [];
-			console.log(data)
 			data.forEach(post => {
 				table.push(post);
 			})
