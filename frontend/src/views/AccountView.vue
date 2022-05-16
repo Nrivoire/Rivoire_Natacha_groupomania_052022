@@ -5,8 +5,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col">
+						
 					</div>
 					<div class="col-6">
+						<p v-if="admin" class="admin-text">Compte admin</p>
 						<h1>Mon compte</h1>
 					</div>
 					<div class="col">
@@ -55,13 +57,14 @@
 
 <script>
 export default {
-	name: "UserUpdateView",
+	name: "AccountView",
 	data() {
 		return {
 			firstname: '',
 			lastname: '',
 			email: '',
-			password: ''
+			password: '',
+			admin: sessionStorage.getItem('Admin')
 		}
 	},
 	methods: {
@@ -139,5 +142,9 @@ h1 {
 .deleteButton {
 	margin-top: 10%;
 	background-color: rgb(168, 3, 3);
+}
+
+.admin-text {
+	color: blue;
 }
 </style>

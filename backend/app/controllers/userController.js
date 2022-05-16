@@ -60,10 +60,15 @@ exports.login = async (req, res) => {
 				if (user.dataValues.password !== md5(req.body.password))
 					res.status(404).send('wrong password');
 				else {
+					var bool = false;
+					if (user.dataValues.admin == 1)
+						bool = true;
 					res.status(200).json({
 						userId: user.dataValues.id,
+						admin: bool,
 						token: jwt.sign(
-							{ userId: user.dataValues.id },
+							{ userId: user.dataValues.id ,
+								admin: bool }, 
 							'RANDOM_TOKEN_SECRET',
 							{ expiresIn: '24h' }
 						)

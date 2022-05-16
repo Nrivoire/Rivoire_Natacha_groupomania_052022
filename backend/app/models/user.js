@@ -15,6 +15,9 @@ const User = sequelize.define('user', {
 	},
 	password: {
 		type: DataTypes.STRING
+	},
+	admin : {
+		type: DataTypes.INTEGER
 	}
 } , {
 	// Other model options go here
