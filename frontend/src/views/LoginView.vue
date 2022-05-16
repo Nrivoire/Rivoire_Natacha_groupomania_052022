@@ -54,8 +54,8 @@ export default {
 			}).then(res => {
 				return res.json();
 			}).then(data => {
-				console.log(data);
 				sessionStorage.setItem("Token", JSON.stringify(data.token));
+				sessionStorage.setItem("UserId", JSON.stringify(data.userId));
 				window.location = "/session";
 			}).catch(err => {
 				console.error(err);

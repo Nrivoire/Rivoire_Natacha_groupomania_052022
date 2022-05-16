@@ -33,18 +33,21 @@
 								<textarea class="form-control" rows="2"
 									placeholder="Vous pouvez écrire votre commentaire ici" v-model="message"></textarea>
 								<div class="mar-top clearfix">
-									<button class="btn btn-sm btn-primary pull-right" @click="createComment"
+									<button class="partage-btn btn btn-sm btn-primary pull-right" @click="createComment"
 										type="submit">Partager</button>
 								</div>
 							</div>
 						</div>
 
 						<!-- COMMENT - START -->
-						<div class="media" v-for="comment in commentsData" :key="comment">
+						<div class="media" v-for="comment in commentsData" :key="comment" :value="comment.id">
 							<div class="media-body">
 								<h4 class="media-heading">{{ comment.firstname + ' ' + comment.lastname }}</h4>
 								<p>{{ comment.message }}</p>
 								<div class="info_commentaire">
+									<div class="info_commentaire_button">
+										<button v-if="this.currentUser == comment.userid" @click="deleteComment(comment.id)" class="btn btn-outline-danger" type="delete">supprimer</button>
+									</div>
 									<ul class="list-unstyled list-inline media-detail pull-left">
 										<li>{{ comment.date }}</li>
 									</ul>
@@ -115,10 +118,31 @@ export default {
 			}).then(res => {
 				return res.json();
 			}).then(data => {
+				this.currentUser = sessionStorage.getItem("UserId");
 				this.commentsData = data;
 			}).catch(err => {
 				console.error(err);
 			})
+		},
+		deleteComment(commentId) {
+			if (confirm('Voulez-vous vraiment supprimer votre commentaire?')) {
+				var h = new Headers();
+				h.append('Content-Type', 'application/json');
+				h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
+				fetch('http://localhost:3000/api/comment/delete', {
+					method: "DELETE",
+					headers: h,
+					body: JSON.stringify({
+						commentId : commentId
+					})
+				}).then(res => {
+					if (res.ok) {
+						location.reload();
+					}
+				}).catch(err => {
+					console.error(err);
+				})
+			}
 		}
 	},
 	beforeMount() {
@@ -203,6 +227,14 @@ export default {
 	justify-content: space-between;
 }
 
+.info_commentaire_button {
+	width: 100px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	column-gap: 2px;
+}
+
 #comments {
 	box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
 	background-color: #FFFFFF;
@@ -214,8 +246,12 @@ export default {
 
 #comments .btn {
 	margin-top: 7px;
+}
+
+.partage-btn {
 	width: 15%;
 }
+
 
 #comments form fieldset {
 	clear: both;

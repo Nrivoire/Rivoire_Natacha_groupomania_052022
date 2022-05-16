@@ -31,6 +31,7 @@ app.post('/api/post/create', auth, multer, postController.createPost);
 
 app.post('/api/comment/create', auth, commentController.createComment);
 app.get('/api/comment/get/:id', auth, commentController.getAllCommentsForOnePost);
+app.delete('/api/comment/delete', auth, commentController.deleteComment);
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

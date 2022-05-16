@@ -62,3 +62,21 @@ exports.getAllCommentsForOnePost = (req, res) => {
 		res.status(400).send(err);
 	}
 }
+
+exports.deleteComment = (req, res) => {
+	try {
+		console.log(req.body);
+		Comment.destroy({
+			where: {
+				id: req.body.commentId
+			}
+		}).then(() => {
+			res.status(200).send('ok');
+		}).catch(err => {
+			console.error(err);
+			res.status(400).send(err);
+		});
+	} catch (err) {
+		res.status(400).send(err);
+	}
+}
