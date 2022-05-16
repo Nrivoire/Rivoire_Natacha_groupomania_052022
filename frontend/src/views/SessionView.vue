@@ -3,47 +3,38 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-				</div>
-				<div class="col-6">
-					<div class="new-post">
-						<input @change="uploadPicture($event)" type="file" accept="image/png, image/jpeg"
-							class="downloadPic">
-						<textarea class="input-new-post" type="text" placeholder="Votre message ici..."
-							name="newContent" v-model="newContent"></textarea>
-						<button @click="postNewPost" class="validate" type="submit">Valider</button>
+					<div class="media blog-media media-new-post">
+						<div class="downloadPic">
+							<input @change="uploadPicture($event)" type="file" placeholder="Choisir une image" accept="image/png, image/jpeg">
+						</div>
+						<div class="media-body">
+							<textarea v-model='title' placeholder="Votre titre ici..."></textarea>
+							<textarea class="input-new-post" type="text" placeholder="Votre message ici..."
+								name="newContent" v-model="newContent"></textarea>
+							<button @click="postNewPost" class="validate" type="submit">Valider</button>
+						</div>
 					</div>
-				</div>
-				<div class="col">
 				</div>
 			</div>
 		</div>
 		<section class="home-blog bg-sand">
 			<div class="container">
-				<!-- section title -->
-				<div class="row justify-content-md-center">
-					<div class="col-xl-5 col-lg-6 col-md-8">
-						<div class="section-title text-center title-ex1">
-							<h2>Latest News</h2>
-							<p>Inventore cillum soluta inceptos eos platea, soluta class laoreet repellendus imperdiet
-								optio.</p>
-						</div>
-					</div>
-				</div>
-				<!-- section title ends -->
 				<div class="row" v-for="post in tablePost" :key="post">
 					<div class="col">
 						<div class="media blog-media">
 							<a :href="post.idURL">
-							<img class="d-flex" :src="post.imageURL" alt="post image"></a>
+								<img class="d-flex" :src="post.imageURL" alt="post image"></a>
 							<div class="media-body">
 								<a :href="post.idURL">
 									<h5 class="mt-0">{{ post.title }}</h5>
 								</a>
-								{{ post.content }}
-								<a :href="post.idURL" class="post-link">Read More</a>
+								<div class="content">{{ post.content }}</div>
 								<ul>
 									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b></li>
-									<li class="text-right"><a :href="post.idURL">07 comments</a></li>
+									<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
+											post.count_commentaires
+											: 0
+									}} Commentaires</a></li>
 								</ul>
 							</div>
 						</div>
@@ -126,12 +117,6 @@ a:hover {
 	height: 100px;
 }
 
-.new-post,
-.post {
-	background-color: rgb(245, 167, 167);
-	width: 100%;
-}
-
 /* Set a style for all buttons */
 .validate {
 	background-color: rgb(214, 79, 79);
@@ -141,6 +126,19 @@ a:hover {
 	border: none;
 	cursor: pointer;
 	width: 80%;
+}
+
+.downloadPic {
+	border: 1px solid grey;
+	min-width: 200px;
+	height: 260px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.content {
+	margin-bottom: 20px;
 }
 
 input[type='file'] {
@@ -388,5 +386,9 @@ body {
 	width: 100%;
 	height: 1px;
 	background: #eeeef2;
+}
+
+.media-new-post {
+	width: 100%;
 }
 </style>
