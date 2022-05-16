@@ -1,10 +1,15 @@
 <template>
-  <nav>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <router-link class="navbar-brand" to="/session">
+        <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40">
+      </router-link>
+    </div>
     <router-link to="/login">Login</router-link> |
     <router-link to="/signup">Signup</router-link> |
     <router-link to="/account">Account</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
@@ -15,6 +20,8 @@
   text-align: center;
   color: #2c3e50;
 }
+
+.logo-nav {}
 
 nav {
   padding: 30px;
