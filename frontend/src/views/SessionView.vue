@@ -22,9 +22,24 @@
 			<div class="container">
 				<div class="row" v-for="post in tablePost" :key="post">
 					<div class="col">
-						<div class="media blog-media">
+						<div v-if="post.imageURL" class="media blog-media">
 							<a :href="post.idURL">
 								<img class="d-flex" :src="post.imageURL" alt="post image"></a>
+							<div class="media-body">
+								<a :href="post.idURL">
+									<h5 class="mt-0">{{ post.title }}</h5>
+								</a>
+								<div class="content">{{ post.content }}</div>
+								<ul>
+									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b></li>
+									<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
+											post.count_commentaires
+											: 0
+									}} Commentaires</a></li>
+								</ul>
+							</div>
+						</div>
+						<div v-else class="media blog-media media-only-text">
 							<div class="media-body">
 								<a :href="post.idURL">
 									<h5 class="mt-0">{{ post.title }}</h5>
@@ -145,6 +160,10 @@ a:hover {
 
 .content {
 	margin-bottom: 20px;
+}
+
+.media-only-text {
+	width: 100%;
 }
 
 input[type='file'] {

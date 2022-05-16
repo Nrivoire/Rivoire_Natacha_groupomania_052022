@@ -3,11 +3,13 @@ const sequelize = require('../connect.js');
 
 exports.createPost = async (req, res) => {
 	try {
+		var img = null;
+		req.file ? img = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : img;
 		await Post.create({
 			userid: req.auth.userId,
 			content: req.body.content,
 			title: req.body.title,
-			imageURL: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+			imageURL: img
 		}).then(() => {
 			res.status(200).send("ok");
 		}).catch(err => {
@@ -15,6 +17,7 @@ exports.createPost = async (req, res) => {
 			res.status(400).send(err);
 		})
 	} catch(err) {
+		console.log(err);
 		res.status(400).send(err);
 	}
 }
@@ -37,6 +40,7 @@ exports.getAllPosts = (req, res) => {
 		})
 		
 	} catch(err) {
+		console.log(err);
 		res.status(400).send(err);
 	}
 }
@@ -56,6 +60,7 @@ exports.getPost = (req, res) => {
 			res.status(400).send(err);
 		});
 	} catch(err) {
+		console.log(err);
 		res.status(400).send(err);
 	}
 }
