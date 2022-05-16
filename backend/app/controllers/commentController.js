@@ -65,7 +65,6 @@ exports.getAllCommentsForOnePost = (req, res) => {
 
 exports.deleteComment = (req, res) => {
 	try {
-		console.log(req.body);
 		Comment.destroy({
 			where: {
 				id: req.body.commentId

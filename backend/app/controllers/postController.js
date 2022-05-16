@@ -64,3 +64,20 @@ exports.getPost = (req, res) => {
 		res.status(400).send(err);
 	}
 }
+
+exports.deletePost = (req, res) => {
+	try {
+		Post.destroy({
+			where: {
+				id: req.body.postid
+			}
+		}).then(() => {
+			res.status(200).send('ok');
+		}).catch(err => {
+			console.error(err);
+			res.status(400).send(err);
+		});
+	} catch (err) {
+		res.status(400).send(err);
+	}
+}

@@ -36,6 +36,7 @@
 						</div>
 					</div>
 				</div>
+				<button v-if="postData.userid == userId" @click="deletePost" class="btn btn-outline-danger delete-post">Supprimer Post</button>
 			</div>
 		</section>
 		<section class="content-item" id="comments">
@@ -52,7 +53,7 @@
 								</div>
 							</div>
 						</div>
-
+					
 						<!-- COMMENT - START -->
 						<div class="media" v-for="comment in commentsData" :key="comment" :value="comment.id">
 							<div class="media-body">
@@ -83,7 +84,8 @@ export default {
 		return {
 			postData: '',
 			message: '',
-			commentsData: ''
+			commentsData: '',
+			userId: sessionStorage.getItem("UserId")
 		}
 	},
 	methods: {
@@ -152,6 +154,26 @@ export default {
 				}).then(res => {
 					if (res.ok) {
 						location.reload();
+					}
+				}).catch(err => {
+					console.error(err);
+				})
+			}
+		},
+		deletePost() {
+			if (confirm('Voulez-vous vraiment supprimer votre post?')) {
+				var h = new Headers();
+				h.append('Content-Type', 'application/json');
+				h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
+				fetch('http://localhost:3000/api/post/delete', {
+					method: "DELETE",
+					headers: h,
+					body: JSON.stringify({
+						postid : this.$route.params.id
+					})
+				}).then(res => {
+					if (res.ok) {
+						window.location = '/session';
 					}
 				}).catch(err => {
 					console.error(err);
@@ -251,6 +273,10 @@ export default {
 
 .media-only-text {
 	width: 100%;
+}
+
+.delete-post {
+	width: 20%;
 }
 
 #comments {

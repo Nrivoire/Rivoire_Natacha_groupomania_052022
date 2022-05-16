@@ -28,6 +28,7 @@ app.delete('/api/user/delete', auth, userController.deleteUser);
 app.get('/api/post/get/:id', postController.getPost);
 app.get('/api/post', auth, postController.getAllPosts);
 app.post('/api/post/create', auth, multer, postController.createPost);
+app.delete('/api/post/delete', auth, postController.deletePost);
 
 app.post('/api/comment/create', auth, commentController.createComment);
 app.get('/api/comment/get/:id', auth, commentController.getAllCommentsForOnePost);
