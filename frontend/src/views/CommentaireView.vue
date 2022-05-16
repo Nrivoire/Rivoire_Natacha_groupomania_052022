@@ -4,9 +4,23 @@
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						<div class="media blog-media">
+						<div v-if="postData.imageURL" class="media blog-media">
 							<a :href="postData.idURL">
 								<img class="d-flex" :src="postData.imageURL" alt="postData image"></a>
+							<div class="media-body">
+								<a :href="postData.idURL">
+									<h5 class="mt-0">{{ postData.title }}</h5>
+								</a>
+								<div class="content_post">{{ postData.content }}</div>
+								<ul>
+									<li>publié par <b> {{ postData.firstname + " " + postData.lastname }}</b></li>
+									<li class="text-right">{{ postData.count_commentaires ? postData.count_commentaires
+											: 0
+									}} Commentaires</li>
+								</ul>
+							</div>
+						</div>
+						<div v-else class="media blog-media media-only-text">
 							<div class="media-body">
 								<a :href="postData.idURL">
 									<h5 class="mt-0">{{ postData.title }}</h5>
@@ -233,6 +247,10 @@ export default {
 	flex-direction: row;
 	justify-content: flex-start;
 	column-gap: 2px;
+}
+
+.media-only-text {
+	width: 100%;
 }
 
 #comments {
