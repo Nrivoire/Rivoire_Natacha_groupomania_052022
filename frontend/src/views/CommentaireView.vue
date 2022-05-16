@@ -30,40 +30,31 @@
 					<div class="col">
 						<div class="panel">
 							<div class="panel-body">
-								<textarea class="form-control" rows="2" placeholder="Vous pouvez écrire votre commentaire ici"></textarea>
+								<textarea class="form-control" rows="2"
+									placeholder="Vous pouvez écrire votre commentaire ici" v-model="message"></textarea>
 								<div class="mar-top clearfix">
-									<button class="btn btn-sm btn-primary pull-right" type="submit"><i
-											class="fa fa-pencil fa-fw"></i> Partager</button>
+									<button class="btn btn-sm btn-primary pull-right" @click="createComment"
+										type="submit">Partager</button>
 								</div>
 							</div>
 						</div>
 
-							<!-- COMMENT - START -->
-							<div class="media">
-								<div class="media-body">
-									<h4 class="media-heading">John Doe</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit
-										amet,
-										consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing
-										elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-										sit
-										amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
-										adipiscing elit.</p>
-									<div class="info_commentaire">
+						<!-- COMMENT - START -->
+						<div class="media" v-for="comment in commentsData" :key="comment">
+							<div class="media-body">
+								<h4 class="media-heading">{{ comment.firstname + ' ' + comment.lastname }}</h4>
+								<p>{{ comment.message }}</p>
+								<div class="info_commentaire">
 									<ul class="list-unstyled list-inline media-detail pull-left">
-										<li><i class="fa fa-calendar"></i>27/02/2014</li>
+										<li>{{ comment.date }}</li>
 									</ul>
-									<ul class="list-unstyled list-inline media-detail pull-right">
-										<li class=""><a href="">12 Like</a></li>
-										<li class=""><a href="">2 Dislike</a></li>
-									</ul>
-									</div>
 								</div>
 							</div>
-							<!-- COMMENT - END -->
 						</div>
+						<!-- COMMENT - END -->
 					</div>
 				</div>
+			</div>
 		</section>
 	</main>
 </template>
@@ -73,13 +64,14 @@ export default {
 	name: "CommentaireView",
 	data() {
 		return {
-			postData: ''
+			postData: '',
+			message: '',
+			commentsData: ''
 		}
 	},
 	methods: {
 		getPost() {
 			var h = new Headers();
-			console.log(this.$route.params.id);
 			h.append('Accept', 'application/json');
 			h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
 			fetch("http://localhost:3000/api/post/get/" + this.$route.params.id, {
@@ -93,9 +85,45 @@ export default {
 				console.error(err);
 			})
 		},
+		createComment() {
+			var h = new Headers();
+			h.append('Accept', 'application/json');
+			h.append('Content-Type', 'application/json');
+			h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
+			fetch("http://localhost:3000/api/comment/create", {
+				method: "POST",
+				headers: h,
+				body: JSON.stringify({
+					postid: this.$route.params.id,
+					message: this.message,
+					date: new Date()
+				})
+			}).then(res => {
+				if (res.ok)
+					location.reload();
+			}).catch(err => {
+				console.error(err);
+			})
+		},
+		getComments() {
+			var h = new Headers();
+			h.append('Accept', 'application/json');
+			h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
+			fetch("http://localhost:3000/api/comment/get/" + this.$route.params.id, {
+				method: "GET",
+				headers: h
+			}).then(res => {
+				return res.json();
+			}).then(data => {
+				this.commentsData = data;
+			}).catch(err => {
+				console.error(err);
+			})
+		}
 	},
 	beforeMount() {
-		this.getPost()
+		this.getPost();
+		this.getComments();
 	},
 }
 </script>

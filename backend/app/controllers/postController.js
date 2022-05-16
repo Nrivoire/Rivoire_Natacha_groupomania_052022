@@ -3,7 +3,6 @@ const sequelize = require('../connect.js');
 
 exports.createPost = async (req, res) => {
 	try {
-		console.log(req.body)
 		await Post.create({
 			userid: req.auth.userId,
 			content: req.body.content,

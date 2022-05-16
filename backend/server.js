@@ -8,6 +8,7 @@ const auth = require('./app/middelware/auth.js');
 const multer = require('./app/middelware/multer-config.js');
 const userController = require('./app/controllers/userController.js');
 const postController = require('./app/controllers/postController.js');
+const commentController = require('./app/controllers/commentController.js');
 
 app.use(bodyParser.json({extended: true}));
 app.use((req, res, next) => {
@@ -27,6 +28,9 @@ app.delete('/api/user/delete', auth, userController.deleteUser);
 app.get('/api/post/get/:id', postController.getPost);
 app.get('/api/post', auth, postController.getAllPosts);
 app.post('/api/post/create', auth, multer, postController.createPost);
+
+app.post('/api/comment/create', auth, commentController.createComment);
+app.get('/api/comment/get/:id', auth, commentController.getAllCommentsForOnePost);
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

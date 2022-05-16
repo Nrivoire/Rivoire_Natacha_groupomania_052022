@@ -1,16 +1,17 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40">
+    <router-link to="/session" v-if="this.session">
+      <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40">
+    </router-link>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <router-link to="/login" v-if="!this.session" class="nav-item">Login</router-link> |
+        <router-link to="/login" v-if="!this.session" class="nav-item">Login</router-link>
         <router-link to="/signup" v-if="!this.session" class="nav-item">Signup</router-link>
         <router-link to="/account" v-if="this.session" class="nav-item align-nav">Account</router-link>
         <div class="nav-item">
           <button @click='disconnect' type="button" class="btn btn-outline-danger" width="20"
             v-if="this.session">Déconnexion</button>
         </div>
-
       </div>
     </div>
   </nav>
