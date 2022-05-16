@@ -30,6 +30,8 @@ export default {
     disconnect() {
       if (confirm('Voulez-vous vraiment vous déconnecter?')) {
         sessionStorage.removeItem('Token');
+        sessionStorage.removeItem('UserId');
+        sessionStorage.removeItem('Admin');
         window.location = '/';
       }
     }

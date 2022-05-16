@@ -1,5 +1,6 @@
 const Post = require('../models/post.js');
 const sequelize = require('../connect.js');
+const fs = require('fs');
 
 exports.createPost = async (req, res) => {
 	try {
@@ -16,7 +17,7 @@ exports.createPost = async (req, res) => {
 			console.log(err);
 			res.status(400).send(err);
 		})
-	} catch(err) {
+	} catch (err) {
 		console.log(err);
 		res.status(400).send(err);
 	}
@@ -25,7 +26,7 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = (req, res) => {
 	try {
 		sequelize.query(
-			"SELECT *, posts.id FROM posts INNER JOIN users ON posts.userid = users.id", 
+			"SELECT *, posts.id FROM posts INNER JOIN users ON posts.userid = users.id",
 			{
 				type: sequelize.QueryTypes.SELECT
 			}
@@ -38,8 +39,8 @@ exports.getAllPosts = (req, res) => {
 		}).catch(err => {
 			console.log(err);
 		})
-		
-	} catch(err) {
+
+	} catch (err) {
 		console.log(err);
 		res.status(400).send(err);
 	}
@@ -48,7 +49,7 @@ exports.getAllPosts = (req, res) => {
 exports.getPost = (req, res) => {
 	try {
 		sequelize.query(
-			"SELECT * FROM posts INNER JOIN users ON posts.userid = users.id WHERE posts.id = :id", 
+			"SELECT * FROM posts INNER JOIN users ON posts.userid = users.id WHERE posts.id = :id",
 			{
 				replacements: { id: req.params.id },
 				type: sequelize.QueryTypes.SELECT
@@ -59,7 +60,7 @@ exports.getPost = (req, res) => {
 			console.error(err);
 			res.status(400).send(err);
 		});
-	} catch(err) {
+	} catch (err) {
 		console.log(err);
 		res.status(400).send(err);
 	}
@@ -67,12 +68,30 @@ exports.getPost = (req, res) => {
 
 exports.deletePost = (req, res) => {
 	try {
-		Post.destroy({
+		Post.findOne({
 			where: {
 				id: req.body.postid
 			}
-		}).then(() => {
-			res.status(200).send('ok');
+		}).then(post => {
+			const filename = post.imageURL.split('/images/')[1];
+			fs.unlink('images/' + filename, function (err) {
+				if (err) {
+					console.error(err);
+					res.status(400).send(err);
+					return;
+				}
+				console.log('Deleted file : ' + filename);
+			});
+			Post.destroy({
+				where: {
+					id: req.body.postid
+				}
+			}).then(() => {
+				res.status(200).send('ok');
+			}).catch(err => {
+				console.error(err);
+				res.status(400).send(err);
+			});
 		}).catch(err => {
 			console.error(err);
 			res.status(400).send(err);
