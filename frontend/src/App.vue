@@ -1,9 +1,12 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link to="/session" v-if="this.session">
-      <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40">
+      <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40"
+        alt="logo groupomania">
+      <img class="logo-nav-mobile" src="./assets/logo-groupomania.png" height="50" width="40"
+        alt="logo groupomania">
     </router-link>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <router-link to="/login" v-if="!this.session" class="nav-item">Login</router-link>
         <router-link to="/signup" v-if="!this.session" class="nav-item">Signup</router-link>
@@ -46,6 +49,25 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.logo-nav-mobile {
+  opacity: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .logo-nav {
+    display: none;
+  }
+
+  .logo-nav-mobile {
+    opacity: 1;
+    margin-left: 30px;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+  }
 }
 
 .navbar-nav {

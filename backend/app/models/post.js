@@ -14,6 +14,9 @@ const Post = sequelize.define('post', {
 	},
 	title: {
 		type: DataTypes.STRING
+	},
+	date: {
+		type: DataTypes.DATE
 	}
 } , {
 	// Other model options go here

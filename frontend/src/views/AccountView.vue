@@ -8,7 +8,7 @@
 						
 					</div>
 					<div class="col-6">
-						<p v-if="admin" class="admin-text">Compte admin</p>
+						<p v-if="this.admin == true" class="admin-text">Compte admin</p>
 						<h1>Mon compte</h1>
 					</div>
 					<div class="col">

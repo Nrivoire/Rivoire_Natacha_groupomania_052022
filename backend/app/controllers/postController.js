@@ -10,7 +10,8 @@ exports.createPost = async (req, res) => {
 			userid: req.auth.userId,
 			content: req.body.content,
 			title: req.body.title,
-			imageURL: img
+			imageURL: img,
+			date: new Date()
 		}).then(() => {
 			res.status(200).send("ok");
 		}).catch(err => {
@@ -73,15 +74,17 @@ exports.deletePost = (req, res) => {
 				id: req.body.postid
 			}
 		}).then(post => {
-			const filename = post.imageURL.split('/images/')[1];
-			fs.unlink('images/' + filename, function (err) {
-				if (err) {
-					console.error(err);
-					res.status(400).send(err);
-					return;
-				}
-				console.log('Deleted file : ' + filename);
-			});
+			if (post.imageURL) {
+				const filename = post.imageURL.split('/images/')[1];
+				fs.unlink('images/' + filename, function (err) {
+					if (err) {
+						console.error(err);
+						res.status(400).send(err);
+						return;
+					}
+					console.log('Deleted file : ' + filename);
+				});
+			}
 			Post.destroy({
 				where: {
 					id: req.body.postid

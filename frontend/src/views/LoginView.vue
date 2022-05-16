@@ -166,7 +166,7 @@ button:hover {
 		width: 100%;
 	}
 
-	img {
+	.imgcontainer img {
 		width: 280px;
 	}
 }

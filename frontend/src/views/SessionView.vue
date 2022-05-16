@@ -1,4 +1,5 @@
 <template>
+	<body class="body-session">
 	<main>
 		<div class="container">
 			<div class="row">
@@ -9,10 +10,17 @@
 								accept="image/png, image/jpeg">
 						</div>
 						<div class="media-body">
-							<textarea v-model="newPostTitle" placeholder="Votre titre ici..."></textarea>
-							<textarea class="input-new-post" type="text" placeholder="Votre message ici..."
-								name="newContent" v-model="newContent"></textarea>
-							<button @click="postNewPost" class="validate" type="submit">Valider</button>
+							<form>
+								<textarea v-if="this.errors.title" v-model="newPostTitle" class="form-control" placeholder="Votre titre ici..."></textarea>
+								<textarea v-else v-model="newPostTitle" class="form-control is-invalid" placeholder="Votre titre ici..."></textarea>
+								<textarea v-if="this.errors.content" class="input-new-post form-control "
+									type="text" placeholder="Votre message ici..." name="newContent"
+									v-model="newContent"></textarea>
+								<textarea v-else class="input-new-post form-control is-invalid" type="text"
+									placeholder="Votre message ici..." name="newContent"
+									v-model="newContent"></textarea>
+								<button @click="postNewPost" class="validate" type="submit">Valider</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -31,7 +39,7 @@
 								</a>
 								<div class="content">{{ post.content }}</div>
 								<ul>
-									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b></li>
+									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b><br> le {{ post.date }}</li>
 									<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
 											post.count_commentaires
 											: 0
@@ -46,7 +54,7 @@
 								</a>
 								<div class="content">{{ post.content }}</div>
 								<ul>
-									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b></li>
+									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b><br> le {{ post.date }}</li>
 									<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
 											post.count_commentaires
 											: 0
@@ -59,6 +67,7 @@
 			</div>
 		</section>
 	</main>
+	</body>
 </template>
 
 <script>
@@ -71,31 +80,44 @@ export default {
 			newContent: '',
 			tablePost: '',
 			imageURL: '',
-			newPostTitle: ''
+			newPostTitle: '',
+			errors: {
+				title: 1,
+				content: 1
+			}
 		}
 	},
 	methods: {
 		uploadPicture(event) {
 			this.imageURL = event.target.files[0];
 		},
-		postNewPost() {
-			var formdata = new FormData();
-			formdata.append('content', this.newContent);
-			formdata.append('title', this.newPostTitle);
-			formdata.append('image', this.imageURL);
-			var h = new Headers();
-			h.append('Accept', 'application/json');
-			h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
-			fetch("http://localhost:3000/api/post/create", {
-				method: "POST",
-				headers: h,
-				body: formdata
-			}).then(res => {
-				if (res.ok)
-					location.reload();
-			}).catch(err => {
-				console.error(err);
-			})
+		postNewPost(e) {
+			e.preventDefault();
+			if (this.newPostTitle && this.newContent) {
+				var formdata = new FormData();
+				formdata.append('content', this.newContent);
+				formdata.append('title', this.newPostTitle);
+				formdata.append('image', this.imageURL);
+				var h = new Headers();
+				h.append('Accept', 'application/json');
+				h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
+				fetch("http://localhost:3000/api/post/create", {
+					method: "POST",
+					headers: h,
+					body: formdata
+				}).then(res => {
+					if (res.ok)
+						location.reload();
+				}).catch(err => {
+					console.error(err);
+				})
+			}
+			if (!this.newPostTitle) {
+				this.errors.title = 0;
+			} else this.errors.title = 1;
+			if (!this.newContent) {
+				this.errors.content = 0;
+			} else this.errors.content = 1;
 		},
 		getAllPost() {
 			var h = new Headers();
@@ -124,6 +146,11 @@ export default {
 </script>
 
 <style>
+@media screen and (max-width: 425px) {
+  .body-session {
+    width: 450px;
+  }
+}
 a {
 	text-decoration: none;
 	color: unset;
@@ -134,7 +161,7 @@ a:hover {
 }
 
 .input-new-post {
-	width: 80%;
+	margin-top: 15px;
 	height: 100px;
 }
 
