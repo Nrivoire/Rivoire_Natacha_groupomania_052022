@@ -95,7 +95,8 @@ export default {
 				for (var i = 0; i < data.length; i++) {
 					data[i].idURL = "/commentaire/" + data[i].id;
 				}
-				this.tablePost = data;
+				var newData = data.reverse();
+				this.tablePost = newData;
 			}).catch(err => {
 				console.error(err);
 			})
