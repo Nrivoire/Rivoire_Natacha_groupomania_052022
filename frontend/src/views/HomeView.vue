@@ -1,18 +1,4 @@
 <template>
-  <div class="home">
-    <img src="../assets/icon-above-font.svg" height="500" alt="groupomania red logo">
-    <HomePage msg="Welcome to The Forum"/>
-  </div>
+	<img src="../assets/icon-above-font.svg" height="500">
+	<h1>Bienvenue dans le réseau de Groupomania !</h1>
 </template>
-
-<script>
-// @ is an alias to /src
-import HomePage from '@/components/HomePage.vue'
-
-export default {
-  name: 'HomeView',
-  components: {
-    HomePage
-  }
-}
-</script>

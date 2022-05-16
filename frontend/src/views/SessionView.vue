@@ -5,7 +5,8 @@
 				<div class="col">
 					<div class="media blog-media media-new-post">
 						<div class="downloadPic">
-							<input @change="uploadPicture($event)" type="file" placeholder="Choisir une image" accept="image/png, image/jpeg">
+							<input @change="uploadPicture($event)" type="file" placeholder="Choisir une image"
+								accept="image/png, image/jpeg">
 						</div>
 						<div class="media-body">
 							<textarea v-model="newPostTitle" placeholder="Votre titre ici..."></textarea>
@@ -46,8 +47,10 @@
 </template>
 
 <script>
+
 export default {
 	name: "SessionView",
+
 	data() {
 		return {
 			newContent: '',

@@ -1,16 +1,40 @@
 <template>
-  <nav class="navbar navbar-light bg-light">
-    <div class="container">
-      <router-link class="navbar-brand" to="/session">
-        <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40">
-      </router-link>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <router-link to="/login" v-if="!this.session" class="nav-item">Login</router-link> |
+        <router-link to="/signup" v-if="!this.session" class="nav-item">Signup</router-link>
+        <router-link to="/account" v-if="this.session" class="nav-item align-nav">Account</router-link>
+        <div class="nav-item">
+          <button @click='disconnect' type="button" class="btn btn-outline-danger" width="20"
+            v-if="this.session">Déconnexion</button>
+        </div>
+
+      </div>
     </div>
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/signup">Signup</router-link> |
-    <router-link to="/account">Account</router-link>
   </nav>
   <router-view />
 </template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      session: sessionStorage.getItem('Token')
+    }
+  },
+  methods: {
+    disconnect() {
+      if (confirm('Voulez-vous vraiment vous déconnecter?')) {
+        sessionStorage.removeItem('Token');
+        window.location = '/';
+      }
+    }
+  }
+}
+</script>
 
 <style>
 #app {
@@ -21,7 +45,23 @@
   color: #2c3e50;
 }
 
-.logo-nav {}
+.navbar-nav {
+  align-items: center;
+}
+
+.align-nav {
+  height: 20%;
+}
+
+.logo-nav {
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.nav-item {
+  margin-right: 10px;
+  margin-left: 10px;
+}
 
 nav {
   padding: 30px;

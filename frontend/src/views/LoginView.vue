@@ -1,5 +1,4 @@
 <template>
-
 	<body>
 		<main>
 			<div class="container">
@@ -68,7 +67,7 @@ export default {
 
 <style>
 .col-log {
-	background-color: rgb(245, 167, 167);
+	background-color: rgb(252, 222, 222);
 	border-radius: 10px;
 }
 
