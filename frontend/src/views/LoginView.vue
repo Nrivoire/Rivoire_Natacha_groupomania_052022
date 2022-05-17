@@ -1,50 +1,47 @@
 <template>
-
-	<body>
-		<main>
-			<div class="container">
-				<div class="row">
-					<div class="col">
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+				</div>
+				<div class="col-6 col-log">
+					<div class="imgcontainer">
+						<img src="../assets/icon-above-font.svg" height="300" alt="groupomania red logo">
 					</div>
-					<div class="col-6 col-log">
-						<div class="imgcontainer">
-							<img src="../assets/icon-above-font.svg" height="300" alt="groupomania red logo">
-						</div>
-						<form>
-							<div class="container_login">
-								<div v-if="!this.errors.login" class="alert alert-dark" role="alert">
-									Wrong email or password
-								</div>
-								<div class="item">
-									<label for="email"><b>Email</b></label>
-									<input type="email" v-if="this.errors.email" placeholder="Votre email" name="email"
-										v-model="email" required>
-									<input type="email" v-else class="form-control is-invalid" placeholder="Votre email"
-										name="email" v-model="email" required>
-									<div id="validationServer04Feedback" class="invalid-feedback">
-										Il manque votre email
-									</div>
-								</div>
-								<div class="item">
-									<label for="password"><b>Mot de passe</b></label>
-									<input type="password" v-if="this.errors.password" placeholder="Votre mot de passe"
-										name="password" v-model="password" required>
-									<input type="password" v-else class="form-control is-invalid"
-										placeholder="Votre mot de passe" name="password" v-model="password" required>
-									<div id="validationServer04Feedback" class="invalid-feedback">
-										Il manque votre mot de passe
-									</div>
-								</div>
-								<button @click="loginSubmit" type="submit">Login</button>
+					<form>
+						<div class="container_login">
+							<div v-if="!this.errors.login" class="alert alert-dark" role="alert">
+								Wrong email or password
 							</div>
-						</form>
-					</div>
-					<div class="col">
-					</div>
+							<div class="item">
+								<label for="email"><b>Email</b></label>
+								<input id="email" type="email" v-if="this.errors.email" placeholder="Votre email" name="email"
+									v-model="email" required>
+								<input type="email" v-else class="form-control is-invalid" placeholder="Votre email"
+									name="email" v-model="email" required>
+								<div id="validationEmail" class="invalid-feedback">
+									Il manque votre email
+								</div>
+							</div>
+							<div class="item">
+								<label for="password"><b>Mot de passe</b></label>
+								<input id="password" type="password" v-if="this.errors.password" placeholder="Votre mot de passe"
+									name="password" v-model="password" required>
+								<input type="password" v-else class="form-control is-invalid"
+									placeholder="Votre mot de passe" name="password" v-model="password" required>
+								<div id="validationPassword" class="invalid-feedback">
+									Il manque votre mot de passe
+								</div>
+							</div>
+							<button @click="loginSubmit" type="submit">Login</button>
+						</div>
+					</form>
+				</div>
+				<div class="col">
 				</div>
 			</div>
-		</main>
-	</body>
+		</div>
+	</main>
 </template>
 
 <script>

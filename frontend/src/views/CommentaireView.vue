@@ -55,7 +55,7 @@
 						</div>
 					
 						<!-- COMMENT - START -->
-						<div class="media" v-for="comment in commentsData" :key="comment" :value="comment.id">
+						<div class="media" v-for="comment in commentsData" :key="comment" :data-value="comment.id">
 							<div class="media-body">
 								<h4 class="media-heading">{{ comment.firstname + ' ' + comment.lastname }}</h4>
 								<p>{{ comment.message }}</p>

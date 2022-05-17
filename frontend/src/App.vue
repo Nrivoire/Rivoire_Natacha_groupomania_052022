@@ -18,7 +18,7 @@
         <router-link to="/signup" v-if="!this.session" class="nav-item">Signup</router-link>
         <router-link to="/account" v-if="this.session" class="nav-item align-nav">Compte</router-link>
         <div class="nav-item">
-          <button @click='disconnect' type="button" class="btn btn-outline-danger" width="20"
+          <button @click='disconnect' type="button" class="btn btn-outline-danger button-disconnect"
             v-if="this.session">Déconnexion</button>
         </div>
       </div>
@@ -56,6 +56,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.button-disconnect {
+  width: 100%;
 }
 
 .logo-nav-mobile {

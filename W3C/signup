@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Groupomania Forum</title>
+  <script defer="" src="/js/chunk-vendors.js"></script><script defer="" src="/js/app.js"></script><style type="text/css">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+.logo-nav-mobile {
+  opacity: 0;
+}
+@media screen and (max-width: 425px) {
+.logo-nav {
+    display: none;
+}
+.logo-nav-mobile {
+    opacity: 1;
+    margin-left: 30px;
+}
+.navbar-nav {
+    flex-direction: row;
+}
+}
+.navbar-nav {
+  align-items: center;
+}
+.align-nav {
+  height: 20%;
+}
+.logo-nav {
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.nav-item {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+nav {
+  padding: 30px;
+}
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+nav a.router-link-exact-active {
+  color: rgba(209, 70, 70, 0.79);
+}
+</style><style type="text/css">
+@media screen and (max-width: 425px) {
+.welcome-img {
+		width: 300px;
+}
+}
+</style><style type="text/css">
+.col-log {
+	background-color: rgb(252, 222, 222);
+	border-radius: 10px;
+}
+a {
+	text-decoration: none;
+}
+.container_login {
+	width: 100%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+}
+.item {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Full-width inputs */
+input[type=email],
+input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+	background-color: rgb(214, 79, 79);
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+	opacity: 0.8;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+}
+@media screen and (max-width: 767px) {
+.col-6 {
+		width: 100%;
+}
+.imgcontainer img {
+		width: 280px;
+}
+}
+</style><style type="text/css">
+input[type=firstname],
+input[type=lastname] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+</style><style type="text/css">
+a {
+	text-decoration: none;
+	color: unset;
+}
+a:hover {
+	color: unset;
+}
+.input-new-post {
+	margin-top: 15px;
+	height: 100px;
+}
+
+/* Set a style for all buttons */
+.validate {
+	background-color: rgb(214, 79, 79);
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 80%;
+}
+.downloadPic {
+	border: 1px solid grey;
+	min-width: 200px;
+	height: 260px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.content {
+	margin-bottom: 20px;
+}
+.media-only-text {
+	width: 100%;
+}
+input[type='file'] {
+	border: none
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+	opacity: 0.8;
+}
+body {
+	margin-top: 20px;
+}
+.media img {
+	max-height: 400px;
+}
+.home-blog {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+@media (min-width: 992px) {
+.home-blog {
+		padding-top: 100px;
+		padding-bottom: 100px;
+}
+}
+.home-blog .section-title {
+	padding-bottom: 15px;
+}
+.home-blog .media {
+	margin-top: 50px;
+}
+@media (min-width: 768px) {
+.home-blog .media {
+		margin-top: 30px;
+}
+}
+.bg-sand {
+	background-color: #f5f5f6;
+}
+.media.blog-media {
+	margin-top: 30px;
+	position: relative;
+	display: block;
+}
+@media (min-width: 992px) {
+.media.blog-media {
+		display: table;
+}
+}
+.media.blog-media .circle {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.5);
+	white-space: nowrap;
+	position: absolute;
+	padding: 0;
+	top: 20px;
+	left: 20px;
+	text-align: center;
+	box-shadow: none;
+	transform: translateX(0);
+	color: #fff;
+	transition: background-color 0.3s ease;
+}
+.media.blog-media .circle .day {
+	color: #fff;
+	transition: color 0.25s ease;
+	font-weight: 500;
+	font-size: 28px;
+	line-height: 1;
+	margin-top: 12px;
+}
+.media.blog-media .circle .month {
+	text-transform: uppercase;
+	font-size: 14px;
+}
+.media.blog-media>a {
+	position: relative;
+	display: block;
+}
+@media (min-width: 992px) {
+.media.blog-media>a {
+		display: table-cell;
+		vertical-align: top;
+		min-width: 200px;
+}
+}
+@media (min-width: 1200px) {
+.media.blog-media>a {
+		min-width: 230px;
+}
+}
+.media.blog-media>a:before {
+	position: absolute;
+	content: "";
+	top: 15px;
+	left: 15px;
+	right: 15px;
+	bottom: 15px;
+	opacity: 0;
+	transform: scale(0);
+	transition: transform 0.3s ease, opacity 0.3s;
+	background: rgba(214, 79, 79, 0.2);
+}
+.media.blog-media>a img {
+	width: 100%;
+}
+.media.blog-media:hover>a:before {
+	opacity: 1;
+	transform: scale(1);
+}
+.media.blog-media:hover .circle {
+	background-color: rgba(255, 255, 255, 0.9);
+}
+.media.blog-media:hover .circle .day,
+.media.blog-media:hover .circle .month {
+	color: #222;
+}
+.media.blog-media:hover .media-body h5 {
+	color: #c60c0c;
+}
+.media.blog-media:hover .media-body a.post-link {
+	color: #c60c0c;
+	text-decoration: underline;
+}
+.media.blog-media .media-body {
+	border: 1px solid #efeff3;
+	padding: 30px 30px 10px;
+	font-size: 14px;
+	background: #fff;
+	border-top: none;
+}
+@media (min-width: 992px) {
+.media.blog-media .media-body {
+		padding: 15px 20px 10px;
+		border-top: 1px solid #efeff3;
+		border-left: none;
+		display: table-cell;
+		vertical-align: top;
+}
+}
+@media (min-width: 1200px) {
+.media.blog-media .media-body {
+		padding: 30px 20px 10px;
+}
+}
+.media.blog-media .media-body h5 {
+	transition: color 0.3s ease;
+	margin-bottom: 15px;
+}
+@media (min-width: 992px) {
+.media.blog-media .media-body h5 {
+		font-size: 15px;
+}
+}
+@media (min-width: 1200px) {
+.media.blog-media .media-body h5 {
+		margin-bottom: 15px;
+		font-size: 18px;
+}
+}
+.media.blog-media .media-body a.post-link {
+	display: block;
+	color: #222;
+	font-size: 11px;
+	padding: 23px 0;
+	text-transform: uppercase;
+	font-weight: 400;
+}
+@media (min-width: 992px) {
+.media.blog-media .media-body a.post-link {
+		padding: 7px 0;
+}
+}
+@media (min-width: 1200px) {
+.media.blog-media .media-body a.post-link {
+		padding: 23px 0;
+}
+}
+.media.blog-media .media-body ul {
+	position: relative;
+	padding: 10px 0 0;
+}
+.media.blog-media .media-body ul li {
+	display: inline-block;
+	width: 49%;
+	position: relative;
+}
+.media.blog-media .media-body ul li:before {
+	position: absolute;
+	content: "";
+	top: 5px;
+	left: 0;
+	width: 1px;
+	height: 14px;
+	background: #eeeef2;
+}
+.media.blog-media .media-body ul li:first-child:before {
+	visibility: hidden;
+}
+.media.blog-media .media-body ul:before {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background: #eeeef2;
+}
+.media-new-post {
+	width: 100%;
+}
+</style><style type="text/css">
+h1 {
+	margin-top: 5%;
+	margin-bottom: 10%;
+}
+.row {
+	margin-bottom: 5px;
+}
+.deleteButton {
+	margin-top: 10%;
+	background-color: rgb(168, 3, 3);
+}
+.admin-text {
+	color: blue;
+}
+</style><style type="text/css">
+.button-delete-post{
+		width: 20%;
+}
+@media screen and (max-width: 425px) {
+.button-delete-post{
+		width: 100%;
+}
+}
+.content_post {
+	margin-bottom: 20px;
+}
+.post {
+	border-radius: 10px;
+}
+.commentaire {
+	border-radius: 10px;
+}
+.content-item {
+	padding: 30px 0;
+	background-color: #FFFFFF;
+}
+.content-item.grey {
+	background-color: #F0F0F0;
+	padding: 50px 0;
+	height: 100%;
+}
+.content-item h2 {
+	font-weight: 700;
+	font-size: 35px;
+	line-height: 45px;
+	text-transform: uppercase;
+	margin: 20px 0;
+}
+.content-item h3 {
+	font-weight: 400;
+	font-size: 20px;
+	color: #555555;
+	margin: 10px 0 15px;
+	padding: 0;
+}
+.content-headline {
+	height: 1px;
+	text-align: center;
+	margin: 20px 0 70px;
+}
+.content-headline h2 {
+	background-color: #FFFFFF;
+	display: inline-block;
+	margin: -20px auto 0;
+	padding: 0 20px;
+}
+.grey .content-headline h2 {
+	background-color: #F0F0F0;
+}
+.content-headline h3 {
+	font-size: 14px;
+	color: #AAAAAA;
+	display: block;
+}
+.mar-top {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+.info_commentaire {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.info_commentaire_button {
+	width: 100px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	-moz-column-gap: 2px;
+	     column-gap: 2px;
+}
+.media-only-text {
+	width: 100%;
+}
+#comments {
+	box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
+	background-color: #FFFFFF;
+}
+#comments form {
+	margin-bottom: 30px;
+}
+#comments .btn {
+	margin-top: 7px;
+}
+.partage-btn {
+	width: 15%;
+}
+#comments form fieldset {
+	clear: both;
+}
+#comments form textarea {
+	height: 100px;
+}
+#comments .media {
+	border-top: 1px dashed #DDDDDD;
+	padding: 20px 0;
+	margin: 0;
+}
+#comments .media>.pull-left {
+	margin-right: 20px;
+}
+#comments .media img {
+	max-width: 100px;
+}
+#comments .media h4 {
+	margin: 0 0 10px;
+}
+#comments .media h4 span {
+	font-size: 14px;
+	float: right;
+	color: #999999;
+}
+#comments .media p {
+	margin-bottom: 15px;
+	text-align: justify;
+}
+#comments .media-detail {
+	margin: 0;
+}
+#comments .media-detail li {
+	color: #AAAAAA;
+	font-size: 12px;
+	padding-right: 10px;
+	font-weight: 600;
+}
+#comments .media-detail a:hover {
+	text-decoration: underline;
+}
+#comments .media-detail li:last-child {
+	padding-right: 0;
+}
+#comments .media-detail li i {
+	color: #666666;
+	font-size: 15px;
+	margin-right: 10px;
+}
+</style></head>
+  <body>
+    <noscript>
+      <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app" data-v-app=""><nav class="navbar navbar-expand-lg navbar-light bg-light"><!--v-if--><a href="/" class=""><img class="logo-nav" src="data:image/png;base64,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" height="40" alt="logo groupomania"><img class="logo-nav-mobile" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAqCAYAAADS4VmSAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAQDSURBVFhH7ZdLqFVVGMdPT029aRqaoBmipJmi+U6caI7CiCJwIAgVgqADQZskSeqglBqIFGglmEKEOGmioiYSTSRNJcUKCnxEPssH3szX77f3+S7r7rvvueegXoLuH37nrPOtfdbzW9/6dqVL/3s9UP2uV0/BNHgBhsGT8DD8Db/BT/AdHIPbcE/0CLwGu+Em2HAtbsEv8A70hbvSDDgCZR2JMz8P/ya2Yv1icJUa0qPwMTibaMxOLiS/fwAbdhvnVW3iKl1Nfsv38AzUpSbYAfFnB/ENjIOfE9sUCDkIO4m6OfABNFdtchrGQE11g50Qf/oLbEy9AWH/WkNBsyBWbK8GNAIOQvzvLIyEUjmL9RAPn4T04W9Bu1sxSkNBD8KP4DMO5DlQPWE7RLuuoqvcRq9CzEDHik56wHyIOk9De3oboqNVGqpyZWMCsglaqTv8DlbqRC+DegJiVoFLWjoD1Aeug895etI40x/+AOuczHSoPOQHegvm5sXKIdAPDDTvwkuQymA0AC7CkALadU47c/D7YSBYZ9C6BgYyBzYINkO2dxG5OpMbMNTOdZZnobPl6s91KRbBWi3oSzicFzM9DQsh3UtH72n5NfvVVo/BcrADtzNb5kT6m/UGsX0aNoKN6hiDNRT0BcSyGeHeg3RARenxV8Dnd2ko0VGw/pJbMFQLMm7/mRdb6Uz1Wz0PK8A/t6d/wIEqHa9MB6rfTQ7Ao6MctUGmqDhyrtC5vNihYgBuR5mMiJkcgKhY5qLiJotAVI/ieLenlnbs/FJezEZbdm16oSjrvCU7kvnD43kxO/dl6lf9zgZgBFRuRe+82EpeSCGDSi29ArYX2+r2lbWpL6lml2o4GO0cjH7gLHXMYCxMBuWVqpen9cFE+Aqic2U0tDP3PJ7zgvNou6KG+azx2P/OZg1ke+bVW/bA/USnHhcBZRmszItZqvVJXmzRh+CZ9owvBRsoyiBmIlrUcViXF7Os6s28mPUzKS/mexX5np1MgFSfQ4y8WBdyMhsgnhODWDxvXmGYj7rXoZUWQFSa43u1hmZD1K3W0I7MgOO5TyEc0sF9BlFniG4TzvXKNHUyXHqvKz3fKKj9FJTFA30pklaTEvMG5Ukzw452XZWyOyeTLxJxUYhnejyojyDsJjBF+fIS9ds0IAPSVgi72zsTasorOB2Ef9IJPa6RbrlFXqshZ+9rmXUmGsYEs+kTVZsYYwxUdUmnTLdDvGAuJ79N10JLIOymauYK8VscyIvQkNw7kxUz5LSxwDjvi+geSF9AUlwN8427ekd0Nd6HRoKVq7UFRkNN1cpsivKUTAXfgHw9N673AlfK1XCA+oFvRWbVJjj3XU7AS6yRiXSpS/8lVSp3AD3UlFOmVyVvAAAAAElFTkSuQmCC" height="50" width="40" alt="logo groupomania"></a><div class="" id="navbarNavAltMarkup"><div class="navbar-nav"><a href="/login" class="nav-item">Login</a><a href="/signup" class="router-link-active router-link-exact-active nav-item" aria-current="page">Signup</a><!--v-if--><div class="nav-item"><!--v-if--></div></div></div></nav><main><div class="container"><div class="row"><div class="col"></div><div class="col-6 col-log"><form><div class="imgcontainer"><img src="/img/icon-above-font.c8b4b6b1.svg" height="300" alt="groupomania red logo"></div><div class="container"><!--v-if--><!--v-if--><div class="item"><label for="firstname"><b>Prénom</b></label><input id="firstname" type="text" placeholder="Votre prénom" name="firstname" required=""><div id="validationFirstname" class="invalid-feedback"> Il manque votre prénom </div></div><div class="item"><label for="lastname"><b>Nom</b></label><input id="lastname" type="text" placeholder="Votre nom de famille" name="lastname" required=""><div id="validationLastname" class="invalid-feedback"> Il manque votre nom de famille </div></div><div class="item"><label for="email"><b>Email</b></label><input id="email" type="email" placeholder="Votre email" name="email" required=""><div id="validationEmail" class="invalid-feedback"> Il manque votre email </div></div><div class="item"><label for="password"><b>Mot de passe</b></label><input id="password" type="password" placeholder="Votre mot de passe" name="password" required=""><div id="validationPassword" class="invalid-feedback"> Il manque votre mot de passe </div></div><button type="submit">Login</button></div></form></div><div class="col"></div></div></div></main></div>
+    <!-- built files will be auto injected -->
+  
+
+</body></html>
