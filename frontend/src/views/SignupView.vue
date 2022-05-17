@@ -105,7 +105,6 @@ export default {
 					} else
 						this.errors.signup = 1;
 				}).then(data => {
-					console.log(data);
 					sessionStorage.setItem("Token", JSON.stringify(data.token));
 					window.location = "/session";
 				}).catch(err => {

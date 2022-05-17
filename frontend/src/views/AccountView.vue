@@ -74,7 +74,6 @@ export default {
 			obj = this.lastname ? Object.assign(obj, { 'lastname': this.lastname }) : obj;
 			obj = this.email ? Object.assign(obj, { 'email': this.email }) : obj;
 			obj = this.password ? Object.assign(obj, { 'password': this.password }) : obj;
-			console.log(obj);
 			var h = new Headers();
 			h.append('Content-Type', 'application/json');
 			h.append('Authorization', 'Bearer ' + JSON.parse(sessionStorage.getItem("Token")));
@@ -82,6 +81,10 @@ export default {
 				method: "PUT",
 				headers: h,
 				body: JSON.stringify(obj)
+			}).then(res => {
+				if (res.ok) {
+					alert('Votre compte à bien été modifié !');
+				}
 			}).catch(err => {
 				console.error(err);
 			})
@@ -96,7 +99,6 @@ export default {
 			}).then(res => {
 				return res.json();
 			}).then(data => {
-				console.log(data);
 				this.firstname = data.firstname;
 				this.lastname = data.lastname;
 				this.email = data.email;
