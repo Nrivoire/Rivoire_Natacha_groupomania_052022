@@ -32,10 +32,6 @@
 									v-model="lastname">
 							</div>
 							<div class="item">
-								<label for="email"><b>Email</b></label>
-								<input type="email" placeholder="Votre nouveau email" name="email" v-model="email">
-							</div>
-							<div class="item">
 								<label for="password"><b>Mot de passe</b></label>
 								<input type="password" placeholder="Votre nouveau mot de passe" name="password"
 									v-model="password">
@@ -72,7 +68,6 @@ export default {
 			var obj = {};
 			obj = this.firstname ? Object.assign(obj, { 'firstname': this.firstname }) : obj;
 			obj = this.lastname ? Object.assign(obj, { 'lastname': this.lastname }) : obj;
-			obj = this.email ? Object.assign(obj, { 'email': this.email }) : obj;
 			obj = this.password ? Object.assign(obj, { 'password': this.password }) : obj;
 			var h = new Headers();
 			h.append('Content-Type', 'application/json');
@@ -101,7 +96,6 @@ export default {
 			}).then(data => {
 				this.firstname = data.firstname;
 				this.lastname = data.lastname;
-				this.email = data.email;
 			}).catch(err => {
 				console.error(err)
 			})
