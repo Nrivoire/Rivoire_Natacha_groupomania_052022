@@ -12,8 +12,11 @@
 								<img src="/img/icon-above-font.c8b4b6b1.svg" height="300" alt="groupomania red logo">
 							</div>
 							<div class="container">
-								<div v-if="this.errors.signup" class="alert alert-dark" role="alert">
+								<div v-if="this.errors.signup == 1" class="alert alert-dark" role="alert">
 									Vous devez remplir tout les champs
+								</div>
+								<div v-if="this.errors.signup == 2" class="alert alert-dark" role="alert">
+									Ce compte existe déjà !
 								</div>
 								<div class="item">
 									<label for="firstname"><b>Prénom</b></label>
@@ -103,7 +106,9 @@ export default {
 					if (res.ok) {
 						this.errors.signup = 0;
 						return res.json();
-					} else
+					} else if (res.status == 409)
+						this.errors.signup = 2;
+					else
 						this.errors.signup = 1;
 				}).then(data => {
 					sessionStorage.setItem("Token", JSON.stringify(data.token));
@@ -118,12 +123,6 @@ export default {
 			if (!this.lastname) {
 				this.errors.lastname = 0;
 			} else this.errors.lastname = 1;
-			if (!this.email) {
-				this.errors.email = 0;
-			} else this.errors.email = 1;
-			if (!this.password) {
-				this.errors.password = 0;
-			} else this.errors.password = 1;
 		}
 	}
 }

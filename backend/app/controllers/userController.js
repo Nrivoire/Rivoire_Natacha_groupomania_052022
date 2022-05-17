@@ -13,25 +13,37 @@ exports.createUser = async (req, res) => {
 			where: {
 				email: req.body.email
 			}
-		}).then(() => {
-			User.create({
-				email: req.body.email,
-				birthday: req.body.birthday,
-				password: md5(req.body.password),
-				firstname: req.body.firstname,
-				lastname: req.body.lastname
-			}).then(user => {
-				res.status(200).json({
-					userId: user.dataValues.id,
-					token: jwt.sign(
-						{ userId: user.dataValues.id },
-						'RANDOM_TOKEN_SECRET',
-						{ expiresIn: '24h' }
-					)	
-			})}).catch(err => {
-				console.log(err);
-				res.status(400).send(err);
-			})
+		}).then(user => {
+			if (!user) {
+				User.create({
+					email: req.body.email,
+					birthday: req.body.birthday,
+					password: md5(req.body.password),
+					firstname: req.body.firstname,
+					lastname: req.body.lastname
+				}).then(user => {
+					var bool = false;
+					if (user.dataValues.admin == 1)
+						bool = true;
+					res.status(200).json({
+						userId: user.dataValues.id,
+						token: jwt.sign(
+							{
+								userId: user.dataValues.id,
+								admin: bool
+							},
+							'RANDOM_TOKEN_SECRET',
+							{ expiresIn: '24h' }
+						)
+					})
+				}).catch(err => {
+					console.log(err);
+					res.status(400).send(err);
+				})
+			} else {
+				res.status(409).send("User already exist");
+				return;
+			}
 		}).catch((err) => {
 			console.log(err);
 			res.status(400).send(err);
@@ -67,8 +79,10 @@ exports.login = async (req, res) => {
 						userId: user.dataValues.id,
 						admin: bool,
 						token: jwt.sign(
-							{ userId: user.dataValues.id ,
-								admin: bool }, 
+							{
+								userId: user.dataValues.id,
+								admin: bool
+							},
 							'RANDOM_TOKEN_SECRET',
 							{ expiresIn: '24h' }
 						)
