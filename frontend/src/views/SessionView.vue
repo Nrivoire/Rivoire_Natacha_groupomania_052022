@@ -1,72 +1,79 @@
 <template>
+
 	<body class="body-session">
-	<main>
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="media blog-media media-new-post">
-						<div class="downloadPic">
-							<input @change="uploadPicture($event)" type="file" placeholder="Choisir une image"
-								accept="image/png, image/jpeg">
-						</div>
-						<div class="media-body">
-							<form>
-								<textarea v-if="this.errors.title" v-model="newPostTitle" class="form-control" placeholder="Votre titre ici..."></textarea>
-								<textarea v-else v-model="newPostTitle" class="form-control is-invalid" placeholder="Votre titre ici..."></textarea>
-								<textarea v-if="this.errors.content" class="input-new-post form-control "
-									type="text" placeholder="Votre message ici..." name="newContent"
-									v-model="newContent"></textarea>
-								<textarea v-else class="input-new-post form-control is-invalid" type="text"
-									placeholder="Votre message ici..." name="newContent"
-									v-model="newContent"></textarea>
-								<button @click="postNewPost" class="validate" type="submit">Valider</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<section class="home-blog bg-sand">
+		<main>
 			<div class="container">
-				<div class="row" v-for="post in tablePost" :key="post">
+				<div class="row">
 					<div class="col">
-						<div v-if="post.imageURL" class="media blog-media">
-							<a :href="post.idURL">
-								<img class="d-flex" :src="post.imageURL" alt="post image"></a>
-							<div class="media-body">
-								<a :href="post.idURL">
-									<h5 class="mt-0">{{ post.title }}</h5>
-								</a>
-								<div class="content">{{ post.content }}</div>
-								<ul>
-									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b><br> le {{ post.date }}</li>
-									<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
-											post.count_commentaires
-											: 0
-									}} Commentaires</a></li>
-								</ul>
+						<div class="media blog-media media-new-post">
+							<div class="downloadPic">
+								<input @change="uploadPicture($event)" type="file" placeholder="Choisir une image"
+									accept="image/png, image/jpeg">
 							</div>
-						</div>
-						<div v-else class="media blog-media media-only-text">
 							<div class="media-body">
-								<a :href="post.idURL">
-									<h5 class="mt-0">{{ post.title }}</h5>
-								</a>
-								<div class="content">{{ post.content }}</div>
-								<ul>
-									<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b><br> le {{ post.date }}</li>
-									<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
-											post.count_commentaires
-											: 0
-									}} Commentaires</a></li>
-								</ul>
+								<form>
+									<textarea v-if="this.errors.title" v-model="newPostTitle" class="form-control"
+										placeholder="Votre titre ici..."></textarea>
+									<textarea v-else v-model="newPostTitle" class="form-control is-invalid"
+										placeholder="Votre titre ici..."></textarea>
+									<textarea v-if="this.errors.content" class="input-new-post form-control "
+										type="text" placeholder="Votre message ici..." name="newContent"
+										v-model="newContent"></textarea>
+									<textarea v-else class="input-new-post form-control is-invalid" type="text"
+										placeholder="Votre message ici..." name="newContent"
+										v-model="newContent"></textarea>
+									<button @click="postNewPost" class="validate" type="submit">Valider</button>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-	</main>
+			<section class="home-blog bg-sand">
+				<div class="container">
+					<div class="row" v-for="post in tablePost" :key="post">
+						<div class="col">
+							<div v-if="post.imageURL" class="media blog-media">
+								<a :href="post.idURL">
+									<img class="d-flex" :src="post.imageURL" alt="post image"></a>
+								<div class="media-body">
+									<a :href="post.idURL">
+										<h5 class="mt-0">{{ post.title }}</h5>
+									</a>
+									<div class="content">{{ post.content }}</div>
+									<ul>
+										<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b><br> le {{
+												post.date
+										}}</li>
+										<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
+												post.count_commentaires
+												: 0
+										}} Commentaires</a></li>
+									</ul>
+								</div>
+							</div>
+							<div v-else class="media blog-media media-only-text">
+								<div class="media-body">
+									<a :href="post.idURL">
+										<h5 class="mt-0">{{ post.title }}</h5>
+									</a>
+									<div class="content">{{ post.content }}</div>
+									<ul>
+										<li>publié par <b> {{ post.firstname + " " + post.lastname }}</b><br> le {{
+												post.date
+										}}</li>
+										<li class="text-right"><a :href="post.idURL">{{ post.count_commentaires ?
+												post.count_commentaires
+												: 0
+										}} Commentaires</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
 	</body>
 </template>
 
@@ -140,18 +147,17 @@ export default {
 	},
 	beforeMount() {
 		this.getAllPost();
-		
-
 	},
 }
 </script>
 
 <style>
 @media screen and (max-width: 425px) {
-  .body-session {
-    width: 450px;
-  }
+	.body-session {
+		width: 450px;
+	}
 }
+
 a {
 	text-decoration: none;
 	color: unset;

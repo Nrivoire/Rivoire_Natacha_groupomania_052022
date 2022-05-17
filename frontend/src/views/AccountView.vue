@@ -5,10 +5,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col">
-						
+
 					</div>
 					<div class="col-6">
-						<p v-if="this.admin == true" class="admin-text">Compte admin</p>
+						<p v-if="this.admin" class="admin-text">Compte admin</p>
 						<h1>Mon compte</h1>
 					</div>
 					<div class="col">
@@ -64,7 +64,7 @@ export default {
 			lastname: '',
 			email: '',
 			password: '',
-			admin: sessionStorage.getItem('Admin')
+			admin: ''
 		}
 	},
 	methods: {
@@ -125,6 +125,18 @@ export default {
 	},
 	beforeMount() {
 		this.getAccount()
+
+		function parseJwt(token) {
+			var base64Url = token.split('.')[1];
+			var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+			var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+			}).join(''));
+
+			return JSON.parse(jsonPayload);
+		}
+		var jwt = parseJwt(sessionStorage.getItem('Token'));
+		this.admin = jwt.admin;
 	},
 }
 </script>
