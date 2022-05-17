@@ -6,6 +6,12 @@
       <img class="logo-nav-mobile" src="./assets/logo-groupomania.png" height="50" width="40"
         alt="logo groupomania">
     </router-link>
+    <router-link to="/" v-if="!this.session">
+      <img class="logo-nav" src="./assets/icon-left-font-monochrome-black-croped-resized.png" height="40"
+        alt="logo groupomania">
+      <img class="logo-nav-mobile" src="./assets/logo-groupomania.png" height="50" width="40"
+        alt="logo groupomania">
+    </router-link>
     <div class="" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <router-link to="/login" v-if="!this.session" class="nav-item">Login</router-link>

@@ -71,7 +71,6 @@
 </template>
 
 <script>
-
 export default {
 	name: "SessionView",
 
@@ -140,7 +139,9 @@ export default {
 		}
 	},
 	beforeMount() {
-		this.getAllPost()
+		this.getAllPost();
+		
+
 	},
 }
 </script>

@@ -88,7 +88,7 @@ export default {
 						sessionStorage.setItem("Token", JSON.stringify(data.token));
 						sessionStorage.setItem("UserId", JSON.stringify(data.userId));
 						sessionStorage.setItem("Admin", data.admin);
-						window.location = "/session";
+						window.location = '/session';
 					}
 				}).catch(err => {
 					console.error(err);
