@@ -84,7 +84,8 @@ export default {
 		}
 	},
 	methods: {
-		signup() {
+		signup(e) {
+			e.preventDefault();
 			if (this.firstname && this.lastname && this.email && this.password) {
 				fetch("http://localhost:3000/api/signup", {
 					method: "POST",

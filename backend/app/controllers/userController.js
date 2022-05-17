@@ -121,6 +121,8 @@ exports.deleteUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
 	try {
+		if (req.body.password)
+			req.body.password = md5(req.body.password);
 		await User.update(req.body, {
 			where: {
 				id: req.auth.userId
