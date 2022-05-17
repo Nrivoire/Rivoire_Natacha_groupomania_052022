@@ -50,7 +50,7 @@ exports.getAllPosts = (req, res) => {
 exports.getPost = (req, res) => {
 	try {
 		sequelize.query(
-			"SELECT * FROM posts INNER JOIN users ON posts.userid = users.id WHERE posts.id = :id",
+			"SELECT *, posts.id FROM posts INNER JOIN users ON posts.userid = users.id WHERE posts.id = :id",
 			{
 				replacements: { id: req.params.id },
 				type: sequelize.QueryTypes.SELECT

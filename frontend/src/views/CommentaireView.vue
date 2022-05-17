@@ -150,7 +150,8 @@ export default {
 					method: "DELETE",
 					headers: h,
 					body: JSON.stringify({
-						commentId : commentId
+						commentId : commentId,
+						postid : this.postData.id
 					})
 				}).then(res => {
 					if (res.ok) {

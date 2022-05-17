@@ -70,7 +70,15 @@ exports.deleteComment = (req, res) => {
 				id: req.body.commentId
 			}
 		}).then(() => {
-			res.status(200).send('ok');
+			sequelize.query(
+				"UPDATE posts SET count_commentaires = count_commentaires - 1 WHERE id = " + req.body.postid, 
+			).then(() => {
+				res.status(200).send("ok");
+			})
+			.catch(err => {
+				console.log(err)
+				res.status(400).send(err);
+			})
 		}).catch(err => {
 			console.error(err);
 			res.status(400).send(err);
