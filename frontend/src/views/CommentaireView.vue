@@ -135,7 +135,6 @@ export default {
 			}).then(res => {
 				return res.json();
 			}).then(data => {
-				this.currentUser = sessionStorage.getItem("UserId");
 				this.commentsData = data;
 			}).catch(err => {
 				console.error(err);

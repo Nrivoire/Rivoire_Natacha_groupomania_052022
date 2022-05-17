@@ -74,27 +74,32 @@ exports.deletePost = (req, res) => {
 				id: req.body.postid
 			}
 		}).then(post => {
-			if (post.imageURL) {
-				const filename = post.imageURL.split('/images/')[1];
-				fs.unlink('images/' + filename, function (err) {
-					if (err) {
+			if (post.userid == req.auth.userId || req.auth.admin) {
+				if (post.imageURL) {
+					const filename = post.imageURL.split('/images/')[1];
+					fs.unlink('images/' + filename, function (err) {
+						if (err) {
+							console.error(err);
+							res.status(400).send(err);
+							return;
+						}
+						console.log('Deleted file : ' + filename);
+					});
+					Post.destroy({
+						where: {
+							id: req.body.postid
+						}
+					}).then(() => {
+						res.status(200).send('ok');
+					}).catch(err => {
 						console.error(err);
 						res.status(400).send(err);
-						return;
-					}
-					console.log('Deleted file : ' + filename);
-				});
-			}
-			Post.destroy({
-				where: {
-					id: req.body.postid
+					});
 				}
-			}).then(() => {
-				res.status(200).send('ok');
-			}).catch(err => {
-				console.error(err);
-				res.status(400).send(err);
-			});
+			} else {
+				res.status(400).send("user doesn't have authorization");
+				return;
+			}
 		}).catch(err => {
 			console.error(err);
 			res.status(400).send(err);

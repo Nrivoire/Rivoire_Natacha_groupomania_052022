@@ -65,24 +65,38 @@ exports.getAllCommentsForOnePost = (req, res) => {
 
 exports.deleteComment = (req, res) => {
 	try {
-		Comment.destroy({
+		Comment.findOne({
 			where: {
 				id: req.body.commentId
 			}
-		}).then(() => {
-			sequelize.query(
-				"UPDATE posts SET count_commentaires = count_commentaires - 1 WHERE id = " + req.body.postid, 
-			).then(() => {
-				res.status(200).send("ok");
-			})
-			.catch(err => {
-				console.log(err)
-				res.status(400).send(err);
-			})
+		}).then(comment => {
+			if (comment.userid == req.auth.userId || req.auth.admin) {
+				Comment.destroy({
+					where: {
+						id: req.body.commentId
+					}
+				}).then(() => {
+					sequelize.query(
+						"UPDATE posts SET count_commentaires = count_commentaires - 1 WHERE id = " + req.body.postid, 
+					).then(() => {
+						res.status(200).send("ok");
+					}).catch(err => {
+						console.log(err)
+						res.status(400).send(err);
+					})
+				}).catch(err => {
+					console.error(err);
+					res.status(400).send(err);
+				});
+			} else {
+				res.status(400).send("user doesn't have authorization");
+				return;
+			}
 		}).catch(err => {
-			console.error(err);
+			console.log(err)
 			res.status(400).send(err);
-		});
+		})
+		
 	} catch (err) {
 		res.status(400).send(err);
 	}

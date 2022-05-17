@@ -118,9 +118,9 @@ exports.getUser = (req, res) => {
 	}
 }
 
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = (req, res) => {
 	try {
-		await User.destroy({
+		User.destroy({
 			where: {
 				id: req.auth.userId
 			}
