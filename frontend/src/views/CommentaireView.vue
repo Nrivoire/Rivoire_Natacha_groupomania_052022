@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<button v-if="postData.userid == this.userId || this.admin" @click="deletePost" class="btn btn-outline-danger delete-post">Supprimer Post</button>
+				<button v-if="postData.userid == this.userId || this.admin" @click="deletePost" class="btn btn-outline-danger button-delete-post" type="button">Supprimer Post</button>
 			</div>
 		</section>
 		<section class="content-item" id="comments">
@@ -61,7 +61,7 @@
 								<p>{{ comment.message }}</p>
 								<div class="info_commentaire">
 									<div class="info_commentaire_button">
-										<button v-if="this.userId == comment.userid || this.admin" @click="deleteComment(comment.id)" class="btn btn-outline-danger" type="delete">supprimer</button>
+										<button v-if="this.userId == comment.userid || this.admin" @click="deleteComment(comment.id)" class="btn btn-outline-danger" type="button">supprimer</button>
 									</div>
 									<ul class="list-unstyled list-inline media-detail pull-left">
 										<li>{{ comment.date }}</li>
@@ -203,6 +203,16 @@ export default {
 </script>
 
 <style>
+.button-delete-post{
+		width: 20%;
+}
+
+@media screen and (max-width: 425px) {
+	.button-delete-post{
+		width: 100%;
+	}
+}
+
 .content_post {
 	margin-bottom: 20px;
 }
@@ -287,10 +297,6 @@ export default {
 
 .media-only-text {
 	width: 100%;
-}
-
-.delete-post {
-	width: 20%;
 }
 
 #comments {

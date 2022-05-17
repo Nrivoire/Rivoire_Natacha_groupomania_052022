@@ -152,11 +152,6 @@ export default {
 </script>
 
 <style>
-@media screen and (max-width: 425px) {
-	.body-session {
-		width: 450px;
-	}
-}
 
 a {
 	text-decoration: none;
