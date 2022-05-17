@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<button v-if="postData.userid == this.userId || this.admin" @click="deletePost" class="btn btn-outline-danger button-delete-post" type="button">Supprimer Post</button>
+				<button v-if="postData.userid == this.userId || this.admin == 'true'" @click="deletePost" class="btn btn-outline-danger button-delete-post" type="button">Supprimer Post</button>
 			</div>
 		</section>
 		<section class="content-item" id="comments">
@@ -61,7 +61,7 @@
 								<p>{{ comment.message }}</p>
 								<div class="info_commentaire">
 									<div class="info_commentaire_button">
-										<button v-if="this.userId == comment.userid || this.admin" @click="deleteComment(comment.id)" class="btn btn-outline-danger" type="button">supprimer</button>
+										<button v-if="this.userId == comment.userid || this.admin == 'true'" @click="deleteComment(comment.id)" class="btn btn-outline-danger" type="button">supprimer</button>
 									</div>
 									<ul class="list-unstyled list-inline media-detail pull-left">
 										<li>{{ comment.date }}</li>
@@ -186,19 +186,8 @@ export default {
 	beforeMount() {
 		this.getPost();
 		this.getComments();
-
-		function parseJwt(token) {
-			var base64Url = token.split('.')[1];
-			var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-			var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-			}).join(''));
-
-			return JSON.parse(jsonPayload);
-		}
-		var jwt = parseJwt(sessionStorage.getItem('Token'));
-		this.admin = jwt.admin;
-		this.userId = jwt.userId;
+		this.admin = sessionStorage.getItem('Admin');
+		this.userId = sessionStorage.getItem('UserId');
 	},
 }
 </script>

@@ -20,8 +20,8 @@
 								</div>
 								<div class="item">
 									<label for="firstname"><b>Prénom</b></label>
-									<input type="firstname" v-if="this.errors.firstname" placeholder="Votre prénom" name="firstname"
-										v-model="firstname" required>
+									<input type="firstname" v-if="this.errors.firstname" placeholder="Votre prénom"
+										name="firstname" v-model="firstname" required>
 									<input type="firstname" v-else class="form-control is-invalid"
 										placeholder="Votre prénom" name="firstname" v-model="firstname" required>
 									<div id="validationServer04Feedback" class="invalid-feedback">
@@ -29,8 +29,8 @@
 									</div>
 								</div>
 								<div class="item"><label for="lastname"><b>Nom</b></label>
-									<input type="lastname" v-if="this.errors.lastname" placeholder="Votre nom de famille" name="lastname"
-										v-model="lastname" required>
+									<input type="lastname" v-if="this.errors.lastname"
+										placeholder="Votre nom de famille" name="lastname" v-model="lastname" required>
 									<input type="lastname" v-else class="form-control is-invalid"
 										placeholder="Votre nom de famille" name="lastname" v-model="lastname" required>
 									<div id="validationServer04Feedback" class="invalid-feedback">
@@ -39,17 +39,18 @@
 								</div>
 								<div class="item">
 									<label for="email"><b>Email</b></label>
-									<input type="email" v-if="this.errors.email" placeholder="Votre email" name="email" v-model="email" required>
+									<input type="email" v-if="this.errors.email" placeholder="Votre email" name="email"
+										v-model="email" required>
 									<input type="email" v-else class="form-control is-invalid" placeholder="Votre email"
 										name="email" v-model="email" required>
 									<div id="validationServer04Feedback" class="invalid-feedback">
 										Il manque votre email
-									</div>								
+									</div>
 								</div>
 								<div class="item">
 									<label for="password"><b>Mot de passe</b></label>
-									<input type="password" v-if="this.errors.password" placeholder="Votre mot de passe" name="password"
-										v-model="password" required>
+									<input type="password" v-if="this.errors.password" placeholder="Votre mot de passe"
+										name="password" v-model="password" required>
 									<input type="password" v-else class="form-control is-invalid"
 										placeholder="Votre mot de passe" name="password" v-model="password" required>
 									<div id="validationServer04Feedback" class="invalid-feedback">
@@ -112,6 +113,8 @@ export default {
 						this.errors.signup = 1;
 				}).then(data => {
 					sessionStorage.setItem("Token", JSON.stringify(data.token));
+					sessionStorage.setItem("Admin", JSON.stringify(data.admin));
+					sessionStorage.setItem("UserId", JSON.stringify(data.userId));
 					window.location = "/session";
 				}).catch(err => {
 					console.error(err);
